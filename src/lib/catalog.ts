@@ -1,0 +1,167 @@
+import { categories } from "@/data/categories";
+import { decorationCategories } from "@/data/decorations";
+import { products } from "@/data/products";
+import { services } from "@/data/services";
+import type { Category, Product, Service, Variant } from "@/types";
+
+export const SORT_OPTIONS = [
+  { value: "recommended", label: "Recommended" },
+  { value: "price-asc", label: "Price: low to high" },
+  { value: "price-desc", label: "Price: high to low" },
+  { value: "newest", label: "Newest" },
+] as const;
+export type SortValue = (typeof SORT_OPTIONS)[number]["value"];
+
+export const PRICE_RANGES = [
+  { value: "under-250", label: "Under ₹250", min: 0, max: 249 },
+  { value: "250-1000", label: "₹250 to ₹1,000", min: 250, max: 1000 },
+  { value: "above-1000", label: "Above ₹1,000", min: 1001, max: Infinity },
+] as const;
+
+export function getVariantPrice(v: Variant) {
+  return v.salePrice ?? v.price;
+}
+
+export function getAllProducts() {
+  return products;
+}
+
+export function getProduct(slug: string) {
+  return products.find((p) => p.slug === slug);
+}
+
+export function getProductById(id: string) {
+  return products.find((p) => p.id === id);
+}
+
+export function getCategories(): Category[] {
+  return categories;
+}
+
+export function getCategory(slug: string) {
+  return categories.find((c) => c.slug === slug);
+}
+
+export function getServices(): Service[] {
+  return services;
+}
+
+export function getService(slug: string) {
+  return services.find((s) => s.slug === slug);
+}
+
+export function getPrimaryCategory(product: Product) {
+  return getCategory(product.collections[0]);
+}
+
+export function getFeaturedProducts(limit = 4) {
+  return products.filter((p) => p.featured && isProductAvailable(p)).slice(0, limit);
+}
+
+export function getRelatedProducts(product: Product, limit = 4) {
+  return products
+    .filter((p) => p.id !== product.id && p.collections.some((c) => product.collections.includes(c)))
+    .slice(0, limit);
+}
+
+export function isProductAvailable(p: Product) {
+  return p.variants.some((v) => v.inStock);
+}
+
+export function getFirstAvailableVariant(p: Product) {
+  return p.variants.find((v) => v.inStock);
+}
+
+/** The lowest price among in-stock variants (or among all, when nothing is in stock). */
+export function getStartingPrice(p: Product) {
+  const pool = p.variants.filter((v) => v.inStock);
+  const list = pool.length ? pool : p.variants;
+  return Math.min(...list.map(getVariantPrice));
+}
+
+export type ProductQuery = {
+  collection?: string;
+  sort?: SortValue;
+  price?: string;
+  inStock?: boolean;
+  q?: string;
+};
+
+export function queryProducts(query: ProductQuery): Product[] {
+  let list = products.slice();
+  if (query.collection) list = list.filter((p) => p.collections.includes(query.collection!));
+  if (query.inStock) list = list.filter(isProductAvailable);
+  if (query.price) {
+    const range = PRICE_RANGES.find((r) => r.value === query.price);
+    if (range) {
+      list = list.filter((p) => {
+        const price = getStartingPrice(p);
+        return price >= range.min && price <= range.max;
+      });
+    }
+  }
+  if (query.q) {
+    const q = query.q.toLowerCase();
+    list = list.filter((p) => p.name.toLowerCase().includes(q));
+  }
+  switch (query.sort) {
+    case "price-asc":
+      list.sort((a, b) => getStartingPrice(a) - getStartingPrice(b));
+      break;
+    case "price-desc":
+      list.sort((a, b) => getStartingPrice(b) - getStartingPrice(a));
+      break;
+    case "newest":
+      list.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      break;
+    default:
+      // Recommended: featured and available first, then newest.
+      list.sort((a, b) => {
+        const score = (p: Product) => (isProductAvailable(p) ? 2 : 0) + (p.featured ? 1 : 0);
+        return score(b) - score(a) || b.createdAt.localeCompare(a.createdAt);
+      });
+  }
+  return list;
+}
+
+export function parseSort(value: string | undefined): SortValue {
+  return SORT_OPTIONS.some((o) => o.value === value) ? (value as SortValue) : "recommended";
+}
+
+// --- Search index (client-side search dialog) ------------------------------
+
+export type SearchEntry = {
+  type: "Product" | "Category" | "Puja service" | "Decorations";
+  title: string;
+  description: string;
+  href: string;
+};
+
+export function buildSearchIndex(): SearchEntry[] {
+  return [
+    ...products.map<SearchEntry>((p) => ({
+      type: "Product",
+      title: p.name,
+      description: p.shortDescription,
+      href: `/products/${p.slug}`,
+    })),
+    ...categories.map<SearchEntry>((c) => ({
+      type: "Category",
+      title: c.name,
+      description: c.description,
+      href: `/collections/${c.slug}`,
+    })),
+    ...services.map<SearchEntry>((s) => ({
+      type: "Puja service",
+      title: s.name,
+      description: s.tagline,
+      href: `/puja-services/${s.slug}`,
+    })),
+    ...decorationCategories.map<SearchEntry>((d) => ({
+      type: "Decorations",
+      title: d.name,
+      description: d.description,
+      href: `/decorations-events#${d.slug}`,
+    })),
+  ];
+}
