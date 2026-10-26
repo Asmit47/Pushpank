@@ -1,30 +1,22 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { Logo } from "./logo";
 import { mainNav, site, whatsappLink } from "@/data/site";
+import { Logo } from "./logo";
 
-const secondary = [
-  { label: "About Pushpank", href: "/about" },
-  { label: "Reviews", href: "/reviews" },
-  { label: "FAQs", href: "/faq" },
-  { label: "Contact", href: "/contact" },
-  { label: "Track order or booking", href: "/track" },
-];
-
-const legal = [
-  { label: "Delivery, cancellation & refunds", href: "/shipping-returns" },
-  { label: "Privacy policy", href: "/privacy" },
-  { label: "Terms & conditions", href: "/terms" },
+const forPandits = [
+  { label: "Our Pandits", href: "/pandits" },
+  { label: "Join as a Pandit", href: "/pandits/register" },
+  { label: "Application status", href: "/account" },
 ];
 
 function Column({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <h2 className="font-sans text-sm font-semibold uppercase tracking-[0.14em] text-gold">{title}</h2>
+      <h2 className="font-sans text-sm font-semibold text-gold">{title}</h2>
       <ul className="mt-4 space-y-2.5 text-[0.95rem]">
         {links.map((l) => (
           <li key={l.href + l.label}>
-            <Link href={l.href} className="text-ivory/80 hover:text-white hover:underline">
+            <Link href={l.href} className="text-parchment/75 hover:text-gold-soft hover:underline">
               {l.label}
             </Link>
           </li>
@@ -36,13 +28,13 @@ function Column({ title, links }: { title: string; links: { label: string; href:
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 bg-charcoal pb-20 text-ivory lg:pb-0">
+    <footer className="mt-24 border-t border-line bg-maroon-900 pb-24 text-parchment lg:pb-0">
       <Container className="py-14">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
-          <div className="max-w-xs">
-            <Logo light />
-            <p className="mt-4 text-sm leading-relaxed text-ivory/70">{site.tagline}.</p>
-            <address className="mt-5 space-y-1 text-sm not-italic text-ivory/80">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-6">
+          <div className="max-w-xs lg:col-span-2">
+            <Logo />
+            <p className="mt-4 text-sm leading-relaxed text-parchment/70">{site.tagline}.</p>
+            <address className="mt-5 space-y-1 text-sm not-italic text-parchment/80">
               <p>{site.contact.address}</p>
               <p>
                 <a href={`tel:${site.contact.phone.replace(/\s/g, "")}`} className="hover:underline">
@@ -56,34 +48,18 @@ export function SiteFooter() {
               </p>
               <p>{site.contact.hours}</p>
             </address>
-            {site.social.length > 0 && (
-              <ul className="mt-4 flex gap-4 text-sm">
-                {site.social.map((s) => (
-                  <li key={s.href}>
-                    <a href={s.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
           <Column title="Shop" links={mainNav.shop} />
-          <Column title="Puja services" links={mainNav.book} />
-          <Column title="Decorations & events" links={mainNav.decorations} />
-          <Column title="Pushpank" links={secondary} />
+          <Column title="Puja" links={mainNav.puja} />
+          <Column title="More" links={[...mainNav.more, ...mainNav.decorations]} />
+          <Column title="For Pandits" links={forPandits} />
         </div>
-
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-ivory/60 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-gold/15 pt-6 text-sm text-parchment/60 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Pushpank. All rights reserved.</p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            {legal.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="hover:text-white hover:underline">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+            <li><Link href="/shipping-returns" className="hover:text-gold-soft">Delivery and refunds</Link></li>
+            <li><Link href="/privacy" className="hover:text-gold-soft">Privacy</Link></li>
+            <li><Link href="/terms" className="hover:text-gold-soft">Terms</Link></li>
           </ul>
         </div>
       </Container>

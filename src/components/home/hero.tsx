@@ -1,73 +1,51 @@
-import Link from "next/link";
-import { ArrowRight, CalendarHeart, ShoppingBasket } from "lucide-react";
-import { FadeIn } from "@/components/motion/reveal";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Media } from "@/components/ui/media";
-import { site } from "@/data/site";
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative overflow-hidden">
-      {/* Soft light behind the photograph: CSS only, no particles or parallax. */}
+    <section aria-labelledby="hero-title" className="relative z-10 isolate overflow-hidden bg-night">
+      <Image
+        src="/images/generated/hero-altar.jpg"
+        alt="A brass diya and incense before a gold Om mandala"
+        fill
+        priority
+        quality={100}
+        sizes="100vw"
+        className="object-cover object-[center_70%] lg:object-[64%_center]"
+      />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-24 top-0 h-[34rem] w-[34rem] animate-glow rounded-full bg-[radial-gradient(circle,rgb(182_149_84/0.28),transparent_65%)] motion-reduce:animate-none"
+        className="pointer-events-none absolute inset-y-0 left-0 w-[min(100%,42rem)] bg-gradient-to-r from-night via-night/80 to-transparent"
       />
-      <Container className="relative grid items-center gap-8 pb-12 pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pb-20 lg:pt-14">
-        <div>
-          <FadeIn>
-            <p className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              <span aria-hidden className="h-px w-8 bg-gold" />
-              Lucknow · Flowers · Puja · Pandit
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.05}>
-            <h1
-              id="hero-title"
-              className="text-[2.6rem] font-semibold leading-[1.02] text-maroon sm:text-6xl lg:text-[4.4rem]"
-            >
-              {site.hero.headline}
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.12}>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-charcoal/75">{site.hero.copy}</p>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/shop" size="lg">
-                <ShoppingBasket className="size-5" aria-hidden />
-                Shop Puja Essentials
-              </Button>
-              <Button href="/puja-services" size="lg" variant="secondary">
-                <CalendarHeart className="size-5" aria-hidden />
-                Book a Puja
-              </Button>
-            </div>
-            <p className="mt-5 flex items-center gap-1.5 text-sm text-muted">
-              Need flowers for a specific date?
-              <Link href="/decorations-events#quote" className="inline-flex items-center gap-1 font-medium text-maroon hover:underline">
-                Request a quote <ArrowRight className="size-3.5" aria-hidden />
-              </Link>
-            </p>
-          </FadeIn>
-        </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent via-night/50 to-night sm:h-44"
+      />
 
-        <FadeIn delay={0.1} className="relative">
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div aria-hidden className="absolute -inset-3 rounded-[2rem] border border-gold/40" />
-            <Media
-              src="/images/placeholder/hero.jpg"
-              alt="A brass thali with marigolds, a lit diya, incense and rose petals"
-              width={768}
-              height={1024}
-              priority
-              sizes="(min-width: 1024px) 45vw, 90vw"
-              wrapperClassName="relative aspect-[5/4] rounded-[1.75rem] shadow-lift sm:aspect-[4/3] lg:aspect-[4/5]"
-              className="size-full"
-            />
+      <Container className="relative flex min-h-[calc(100dvh-8.5rem)] items-start pb-28 pt-10 lg:items-center lg:pb-16 lg:pt-16">
+        <div className="max-w-lg">
+          <p lang="hi" className="mantra text-lg text-gold">
+            पुष्पांक
+          </p>
+          <h1
+            id="hero-title"
+            className="mt-3 text-4xl leading-[1.05] font-medium text-parchment sm:text-5xl lg:text-6xl"
+          >
+            Everything for your puja, at the door.
+          </h1>
+          <p className="mt-5 max-w-md text-base leading-relaxed text-parchment/80 sm:text-lg">
+            Fresh flowers, samagri and a pandit for worship at home in Lucknow.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button href="/shop" size="lg" magnetic>
+              Shop Samagri
+            </Button>
+            <Button href="/puja-services#rituals" size="lg" variant="secondary">
+              Book a Pandit
+            </Button>
           </div>
-        </FadeIn>
+        </div>
       </Container>
     </section>
   );

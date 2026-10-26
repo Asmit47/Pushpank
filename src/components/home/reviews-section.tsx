@@ -1,39 +1,26 @@
-import { ExternalLink, MessageSquareQuote } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { site, whatsappLink } from "@/data/site";
+import { ReviewsRing } from "@/components/reviews/reviews-ring";
+import { getGoogleReviews } from "@/lib/server/google-reviews";
+import { whatsappLink } from "@/data/site";
 
-/**
- * Intentionally contains no testimonials, ratings or review counts.
- * Add genuine reviews (with permission and attribution) once they exist.
- */
-export function ReviewsSection() {
-  const url = site.reviewsUrl;
+export async function ReviewsSection() {
+  const data = await getGoogleReviews();
   return (
-    <section aria-labelledby="reviews" className="py-14 lg:py-20">
+    <section aria-labelledby="reviews" className="py-16">
       <Container>
-        <SectionHeading id="reviews" eyebrow="Reviews" title="What customers say" align="center" />
-        <div className="mx-auto mt-8 flex max-w-2xl flex-col items-center rounded-2xl border border-dashed border-gold/60 bg-white/70 px-6 py-10 text-center">
-          <MessageSquareQuote className="size-8 text-gold" aria-hidden />
-          <p className="mt-4 text-charcoal/80">
-            We only show real customer feedback. Verified reviews will appear here after launch.
-          </p>
-          <div className="mt-5 flex flex-wrap justify-center gap-4 text-sm font-medium">
-            {url ? (
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-maroon hover:underline"
-              >
-                Read reviews on Google <ExternalLink className="size-4" aria-hidden />
-              </a>
-            ) : null}
-            <a href={whatsappLink("Hello Pushpank, I would like to share feedback.")} className="text-maroon hover:underline">
+        <h2 id="reviews" className="text-center text-3xl text-gold-soft sm:text-4xl">What customers say</h2>
+        {data ? (
+          <div className="mt-8">
+            <ReviewsRing data={data} />
+          </div>
+        ) : (
+          <div className="mx-auto mt-8 max-w-xl rounded-[20px] border border-dashed border-gold/40 bg-sanctum px-6 py-10 text-center">
+            <p className="text-parchment/80">Verified Google reviews will appear here once the Places connection is set.</p>
+            <a href={whatsappLink("Hello Pushpank, I would like to share feedback.")} className="mt-4 inline-block text-sm text-gold-soft underline">
               Share your feedback
             </a>
           </div>
-        </div>
+        )}
       </Container>
     </section>
   );

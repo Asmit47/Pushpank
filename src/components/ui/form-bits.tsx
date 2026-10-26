@@ -38,19 +38,19 @@ export function FormSection({
   children: ReactNode;
 }) {
   return (
-    <fieldset className="rounded-2xl border border-line bg-white p-5 sm:p-6">
+    <fieldset className="rounded-[20px] border border-line bg-sanctum p-5 sm:p-6">
       <legend className="sr-only">{title}</legend>
       <div className="mb-5 flex items-start gap-3">
         {step !== undefined && (
           <span
             aria-hidden
-            className="grid size-8 shrink-0 place-items-center rounded-full bg-maroon text-sm font-semibold text-ivory"
+            className="grid size-8 shrink-0 place-items-center rounded-full bg-gold text-sm font-semibold text-night"
           >
             {step}
           </span>
         )}
         <div>
-          <h2 className="text-2xl font-semibold leading-tight text-maroon" aria-hidden>
+          <h2 className="text-2xl font-semibold leading-tight text-gold-soft" aria-hidden>
             {title}
           </h2>
           {description && <p className="mt-1 text-sm text-muted">{description}</p>}

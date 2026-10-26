@@ -106,6 +106,31 @@ export type QuoteFormValues = z.infer<typeof quoteFormSchema>;
 
 // --- Tracking -------------------------------------------------------------
 
+export const PANDIT_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] as const;
+export const PANDIT_LANGUAGES = ["Hindi", "Sanskrit", "Awadhi", "English"] as const;
+
+export const panditApplicationSchema = z.object({
+  name,
+  phone,
+  email: z.string().trim().regex(emailRegex, "Enter a valid email address"),
+  locality,
+  pincode,
+  years: z.string().trim().regex(/^\d{1,2}$/, "Enter years of practice"),
+  education: z.string().trim().max(160).optional(),
+  sampradaya: z.string().trim().max(80).optional(),
+  rituals: z.array(z.string()).min(1, "Choose at least one ritual"),
+  languages: z.array(z.string()).min(1, "Choose at least one language"),
+  days: z.array(z.string()).min(1, "Choose the days you are available"),
+  timeWindows: z.array(z.string()).min(1, "Choose at least one time window"),
+  areas: z.string().trim().min(2, "Enter the areas you serve").max(200),
+  travels: z.boolean(),
+  bringsSamagri: z.boolean(),
+  bio: z.string().trim().min(20, "Write a short bio").max(600),
+  consent: z.boolean().refine((v) => v, "Please confirm your details can be reviewed"),
+  website: honeypot,
+});
+export type PanditApplicationValues = z.infer<typeof panditApplicationSchema>;
+
 export const trackSchema = z.object({
   reference: z
     .string()

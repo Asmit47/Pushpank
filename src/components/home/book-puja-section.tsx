@@ -9,13 +9,12 @@ import { ServiceCard } from "./service-card";
 export function BookPujaSection() {
   const services = getServices();
   return (
-    <section aria-labelledby="book-a-puja" className="bg-white/60 py-14 lg:py-20">
+    <section aria-labelledby="book-a-puja" className="bg-sanctum/80 py-14 lg:py-20">
       <Container>
         <SectionHeading
           id="book-a-puja"
-          eyebrow="Book a Puja"
-          title="A pandit for your puja, with the arrangements sorted"
-          description="Request a ritual and we will check pandit availability and confirm with you. A request is not a confirmed booking until our team contacts you."
+          title="A pandit, when you need one"
+          description="Choose a ritual. We check availability and confirm by phone."
           action={
             <Button href="/puja-services" variant="secondary" size="sm" className="self-start sm:self-auto">
               All rituals <ArrowRight className="size-4" aria-hidden />

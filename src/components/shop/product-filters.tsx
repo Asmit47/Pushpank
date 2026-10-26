@@ -26,12 +26,12 @@ export function ProductFilters({ count }: { count: number }) {
   }
 
   return (
-    <div className="rounded-2xl border border-line bg-white p-4 sm:p-5" aria-busy={pending}>
+    <div className="rounded-2xl border border-line bg-sanctum p-4 sm:p-5" aria-busy={pending}>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <p className="flex items-center gap-2 text-sm text-muted" role="status" aria-live="polite">
           <SlidersHorizontal className="size-4" aria-hidden />
           <span>
-            <strong className="font-semibold text-charcoal">{count}</strong> {count === 1 ? "product" : "products"}
+            <strong className="font-semibold text-parchment">{count}</strong> {count === 1 ? "product" : "products"}
           </span>
         </p>
 
@@ -44,10 +44,10 @@ export function ProductFilters({ count }: { count: number }) {
                 return (
                   <label
                     key={r.value || "any"}
-                    className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-maroon ${
+                    className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-gold ${
                       active
-                        ? "border-maroon bg-maroon text-ivory"
-                        : "border-line bg-white hover:border-maroon/50"
+                        ? "border-gold bg-gold text-night"
+                        : "border-line bg-sanctum hover:border-gold/50"
                     }`}
                   >
                     <input
@@ -94,7 +94,7 @@ export function ProductFilters({ count }: { count: number }) {
         <button
           type="button"
           onClick={() => startTransition(() => router.replace(pathname, { scroll: false }))}
-          className="mt-3 text-sm font-medium text-maroon underline-offset-2 hover:underline"
+          className="mt-3 text-sm font-medium text-gold-soft underline-offset-2 hover:underline"
         >
           Clear all filters
         </button>

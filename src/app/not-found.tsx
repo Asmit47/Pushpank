@@ -12,9 +12,15 @@ export default function NotFound() {
         description="The link may be old, or the product or collection may no longer be available."
         action={
           <div className="flex flex-wrap justify-center gap-3">
-            <Button href="/shop">Browse all products</Button>
+            <Button href="/shop">Shop samagri</Button>
             <Button href="/puja-services" variant="secondary">
               Book a puja
+            </Button>
+            <Button href="/pandits" variant="ghost">
+              Our pandits
+            </Button>
+            <Button href="/contact" variant="ghost">
+              Contact
             </Button>
           </div>
         }

@@ -3,7 +3,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 const control =
-  "w-full rounded-xl border bg-white px-3.5 text-[0.95rem] text-charcoal placeholder:text-muted/70 transition-colors focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20 disabled:bg-charcoal/5";
+  "w-full rounded-xl border bg-night px-3.5 text-[0.95rem] text-parchment placeholder:text-muted/80 transition-colors focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/25 disabled:bg-parchment/5";
 
 type FieldShellProps = {
   label: string;
@@ -21,7 +21,7 @@ function FieldShell({ label, error, hint, optional, className, children }: Field
   const describedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-1.5 flex items-baseline justify-between text-sm font-medium">
+      <label htmlFor={id} className="mb-1.5 flex items-baseline justify-between text-sm font-medium text-parchment">
         <span>{label}</span>
         {optional && <span className="text-xs font-normal text-muted">Optional</span>}
       </label>

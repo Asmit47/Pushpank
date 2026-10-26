@@ -61,8 +61,8 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
       <div className="mt-6 grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Puja service</p>
-          <h1 className="mt-2 text-4xl font-semibold leading-tight text-maroon sm:text-5xl">{service.name}</h1>
-          <p className="mt-4 text-lg text-charcoal/75">{service.description}</p>
+          <h1 className="mt-2 text-4xl font-semibold leading-tight text-gold-soft sm:text-5xl">{service.name}</h1>
+          <p className="mt-4 text-lg text-parchment/75">{service.description}</p>
           <ul className="mt-5 space-y-2 text-sm text-muted">
             <li className="flex items-center gap-2">
               <Clock className="size-4 text-gold" aria-hidden />
@@ -98,9 +98,9 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
         <SectionHeading title="Package options" description="Prices are indicative. The final amount is confirmed by our team." />
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {service.packages.map((p) => (
-            <div key={p.id} className="rounded-2xl border border-line bg-white p-6">
+            <div key={p.id} className="rounded-2xl border border-line bg-sanctum p-6">
               <div className="flex items-start justify-between gap-3">
-                <h3 className="text-2xl font-semibold text-maroon">{p.name}</h3>
+                <h3 className="text-2xl font-semibold text-gold-soft">{p.name}</h3>
                 {p.indicativePrice && (
                   <p className="text-right text-sm">
                     <span className="block text-xs text-muted">Indicative</span>
@@ -108,7 +108,7 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
                   </p>
                 )}
               </div>
-              <p className="mt-1 text-sm text-charcoal/75">{p.description}</p>
+              <p className="mt-1 text-sm text-parchment/75">{p.description}</p>
               <List items={p.includes} tone="yes" />
             </div>
           ))}
@@ -116,16 +116,16 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
       </Reveal>
 
       <Reveal className="mt-14 grid gap-6 md:grid-cols-3">
-        <section className="rounded-2xl border border-line bg-white p-6">
-          <h2 className="text-2xl font-semibold text-maroon">Included</h2>
+        <section className="rounded-2xl border border-line bg-sanctum p-6">
+          <h2 className="text-2xl font-semibold text-gold-soft">Included</h2>
           <List items={service.inclusions} tone="yes" />
         </section>
-        <section className="rounded-2xl border border-line bg-white p-6">
-          <h2 className="text-2xl font-semibold text-maroon">Not included</h2>
+        <section className="rounded-2xl border border-line bg-sanctum p-6">
+          <h2 className="text-2xl font-semibold text-gold-soft">Not included</h2>
           <List items={service.exclusions} tone="no" />
         </section>
-        <section className="rounded-2xl border border-line bg-white p-6">
-          <h2 className="text-2xl font-semibold text-maroon">What you need to provide</h2>
+        <section className="rounded-2xl border border-line bg-sanctum p-6">
+          <h2 className="text-2xl font-semibold text-gold-soft">What you need to provide</h2>
           <List items={service.customerProvides} tone="yes" />
         </section>
       </Reveal>
@@ -134,17 +134,17 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
           <div>
             <SectionHeading id="book-title" title={`Request a ${service.name} booking`} description="Share your details and our team will check availability and get back to you." />
-            <ol className="mt-6 space-y-3 text-sm text-charcoal/80">
+            <ol className="mt-6 space-y-3 text-sm text-parchment/80">
               <li>1. Send the request. Nothing is charged.</li>
               <li>2. We check pandit availability for your date.</li>
               <li>3. We contact you to confirm or suggest another slot.</li>
             </ol>
-            <section className="mt-8 rounded-2xl bg-ivory-100 p-5 text-sm">
+            <section className="mt-8 rounded-2xl bg-sanctum p-5 text-sm">
               <h3 className="font-sans text-base font-semibold">Cancellation and rescheduling</h3>
-              <p className="mt-2 leading-relaxed text-charcoal/75">{service.cancellationPolicy}</p>
+              <p className="mt-2 leading-relaxed text-parchment/75">{service.cancellationPolicy}</p>
             </section>
           </div>
-          <div className="rounded-3xl border border-line bg-white p-5 shadow-card sm:p-8">
+          <div className="rounded-3xl border border-line bg-sanctum p-5 shadow-card sm:p-8">
             <BookingForm service={service} />
           </div>
         </div>

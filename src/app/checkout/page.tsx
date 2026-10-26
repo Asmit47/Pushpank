@@ -12,7 +12,7 @@ export default function CheckoutPage() {
   return (
     <Container className="py-8 lg:py-12">
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Cart", href: "/cart" }, { label: "Checkout" }]} />
-      <h1 className="mb-8 mt-4 text-4xl font-semibold text-maroon sm:text-5xl">Checkout</h1>
+      <h1 className="mb-8 mt-4 text-4xl font-semibold text-gold-soft sm:text-5xl">Checkout</h1>
       <CheckoutView />
     </Container>
   );

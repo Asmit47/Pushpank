@@ -1,5 +1,6 @@
 import { categories } from "@/data/categories";
 import { decorationCategories } from "@/data/decorations";
+import { pandits } from "@/data/pandits";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
 import type { Category, Product, Service, Variant } from "@/types";
@@ -85,11 +86,13 @@ export type ProductQuery = {
   price?: string;
   inStock?: boolean;
   q?: string;
+  occasion?: string;
 };
 
 export function queryProducts(query: ProductQuery): Product[] {
   let list = products.slice();
   if (query.collection) list = list.filter((p) => p.collections.includes(query.collection!));
+  if (query.occasion) list = list.filter((p) => p.occasions.includes(query.occasion!));
   if (query.inStock) list = list.filter(isProductAvailable);
   if (query.price) {
     const range = PRICE_RANGES.find((r) => r.value === query.price);
@@ -131,10 +134,12 @@ export function parseSort(value: string | undefined): SortValue {
 // --- Search index (client-side search dialog) ------------------------------
 
 export type SearchEntry = {
-  type: "Product" | "Category" | "Puja service" | "Decorations";
+  type: "Product" | "Category" | "Puja service" | "Decorations" | "Pandit" | "Page";
   title: string;
   description: string;
   href: string;
+  image?: string;
+  price?: number;
 };
 
 export function buildSearchIndex(): SearchEntry[] {
@@ -144,6 +149,8 @@ export function buildSearchIndex(): SearchEntry[] {
       title: p.name,
       description: p.shortDescription,
       href: `/products/${p.slug}`,
+      image: p.images[0]?.src,
+      price: getStartingPrice(p),
     })),
     ...categories.map<SearchEntry>((c) => ({
       type: "Category",
@@ -162,6 +169,22 @@ export function buildSearchIndex(): SearchEntry[] {
       title: d.name,
       description: d.description,
       href: `/decorations-events#${d.slug}`,
+      image: d.image.src,
     })),
+    ...pandits.map<SearchEntry>((p) => ({
+      type: "Pandit",
+      title: p.name,
+      description: p.title,
+      href: `/pandits/${p.slug}`,
+      image: p.image.src,
+    })),
+    ...[
+      { title: "About Pushpank", description: "The shop and the people behind it", href: "/about" },
+      { title: "Reviews", description: "What customers say on Google", href: "/reviews" },
+      { title: "FAQs", description: "Delivery, booking and samagri", href: "/faq" },
+      { title: "Contact", description: "Call, WhatsApp or visit", href: "/contact" },
+      { title: "Track an order", description: "Look up a reference", href: "/track" },
+      { title: "Join as a Pandit", description: "Register to conduct pujas", href: "/pandits/register" },
+    ].map<SearchEntry>((p) => ({ type: "Page", ...p })),
   ];
 }

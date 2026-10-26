@@ -37,7 +37,7 @@ export function CartLine({ line, compact }: { line: ResolvedLine; compact?: bool
           <div className="min-w-0">
             <Link
               href={`/products/${product.slug}`}
-              className="line-clamp-2 font-medium leading-snug hover:text-maroon"
+              className="line-clamp-2 font-medium leading-snug hover:text-gold-soft"
             >
               {product.name}
             </Link>

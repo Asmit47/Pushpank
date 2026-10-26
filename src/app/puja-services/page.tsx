@@ -29,33 +29,35 @@ export default function PujaServicesPage() {
     <Container className="py-8 lg:py-12">
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Book a Puja" }]} />
       <header className="mt-4 max-w-2xl">
-        <h1 className="text-4xl font-semibold text-maroon sm:text-5xl">Book a puja or pandit</h1>
+        <h1 className="text-4xl font-semibold text-gold-soft sm:text-5xl">Book a puja or pandit</h1>
         <p className="mt-3 text-muted">
           Choose a ritual and send a booking request. A request is confirmed only after our team verifies pandit
           availability.
         </p>
       </header>
 
+      <div id="rituals" className="scroll-mt-28">
       <Stagger className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {services.map((s) => (
+        {services.map((s, index) => (
           <StaggerItem key={s.slug}>
-            <ServiceCard service={s} />
+            <ServiceCard service={s} eagerImage={index === 0} />
           </StaggerItem>
         ))}
       </Stagger>
+      </div>
 
       <section id="packages" aria-labelledby="packages-title" className="mt-16 scroll-mt-24">
         <SectionHeading id="packages-title" title="Puja packages" description="Prices are indicative. The final amount is confirmed by our team when your booking is confirmed." />
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {services.flatMap((s) =>
             s.packages.map((p) => (
-              <div key={p.id} className="flex flex-col rounded-2xl border border-line bg-white p-5">
+              <div key={p.id} className="flex flex-col rounded-2xl border border-line bg-sanctum p-5">
                 <p className="text-xs uppercase tracking-wide text-muted">{s.name}</p>
-                <h3 className="mt-1 text-2xl font-semibold text-maroon">{p.name}</h3>
-                <p className="mt-1 text-sm text-charcoal/75">{p.description}</p>
+                <h3 className="mt-1 text-2xl font-semibold text-gold-soft">{p.name}</h3>
+                <p className="mt-1 text-sm text-parchment/75">{p.description}</p>
                 <ul className="mt-3 flex flex-wrap gap-1.5 text-xs">
                   {p.includes.map((i) => (
-                    <li key={i} className="rounded-full bg-ivory px-2.5 py-1">
+                    <li key={i} className="rounded-full bg-night px-2.5 py-1">
                       {i}
                     </li>
                   ))}
@@ -85,10 +87,10 @@ export default function PujaServicesPage() {
         <SectionHeading id="how-it-works" title="How booking works" />
         <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
-            <li key={s.title} className="rounded-2xl border border-line bg-white p-5">
+            <li key={s.title} className="rounded-2xl border border-line bg-sanctum p-5">
               <span className="font-serif text-4xl font-semibold text-gold">{i + 1}</span>
               <h3 className="mt-2 font-sans text-base font-semibold">{s.title}</h3>
-              <p className="mt-1 text-sm text-charcoal/75">{s.body}</p>
+              <p className="mt-1 text-sm text-parchment/75">{s.body}</p>
             </li>
           ))}
         </ol>

@@ -4,11 +4,11 @@ import { cn } from "@/lib/cn";
 type Tone = "neutral" | "green" | "maroon" | "gold" | "danger";
 
 const tones: Record<Tone, string> = {
-  neutral: "bg-charcoal/5 text-charcoal",
-  green: "bg-forest-100 text-forest",
-  maroon: "bg-maroon/10 text-maroon",
-  gold: "bg-gold-100 text-[#6b5320]",
-  danger: "bg-danger/10 text-danger",
+  neutral: "bg-parchment/10 text-parchment",
+  green: "bg-forest-100 text-tulsi",
+  maroon: "bg-gold/15 text-gold-soft",
+  gold: "bg-gold/15 text-gold-soft",
+  danger: "bg-sindoor/20 text-danger",
 };
 
 export function Badge({

@@ -29,11 +29,16 @@ export type Product = {
   createdAt: string;
   /** Occasion/festival tags, only where there is real data. */
   occasions: string[];
+  badge?: "Bestseller" | "New" | "Same-day" | "Festive";
+  secondaryImage?: { src: string; alt: string };
+  highlights?: string[];
+  isFeatured?: boolean;
 };
 
 export type Category = {
   slug: string;
   name: string;
+  hindi?: string;
   description: string;
   image: { src: string; alt: string };
 };
@@ -147,6 +152,45 @@ export type QuoteRequest = {
   budgetRange?: string;
   notes?: string;
   status: "received" | "in_review" | "quoted" | "closed";
+  createdAt: string;
+};
+
+export type Pandit = {
+  slug: string;
+  name: string;
+  title: string;
+  /** Placeholder portrait until a real photograph is provided. */
+  image: { src: string; alt: string };
+  years: number;
+  languages: string[];
+  areas: string[];
+  specialities: string[];
+  bio: string;
+  placeholder: true;
+};
+
+export const PANDIT_APPLICATION_STATUSES = ["received", "under_review", "approved", "declined"] as const;
+export type PanditApplicationStatus = (typeof PANDIT_APPLICATION_STATUSES)[number];
+
+export type PanditApplication = {
+  reference: string;
+  name: string;
+  phone: string;
+  email: string;
+  locality: string;
+  pincode: string;
+  years: number;
+  education?: string;
+  sampradaya?: string;
+  rituals: string[];
+  languages: string[];
+  days: string[];
+  timeWindows: string[];
+  areas: string;
+  travels: boolean;
+  bringsSamagri: boolean;
+  bio: string;
+  status: PanditApplicationStatus;
   createdAt: string;
 };
 

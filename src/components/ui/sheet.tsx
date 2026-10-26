@@ -101,7 +101,7 @@ export function Sheet({
       {open && (
         <div className="fixed inset-0 z-50" onKeyDown={onKeyDown}>
           <motion.div
-            className="absolute inset-0 bg-charcoal/45"
+            className="absolute inset-0 bg-black/65"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -115,7 +115,7 @@ export function Sheet({
             aria-modal="true"
             aria-label={label}
             className={cn(
-              "absolute flex flex-col bg-ivory shadow-lift",
+              "absolute flex flex-col bg-sanctum text-parchment shadow-lift",
               cfg.className,
             )}
             initial={cfg.initial}
@@ -128,7 +128,7 @@ export function Sheet({
                 type="button"
                 onClick={onClose}
                 aria-label={`Close ${label.toLowerCase()}`}
-                className="absolute right-3 top-3 z-10 grid size-10 place-items-center rounded-full text-charcoal hover:bg-charcoal/5"
+                className="absolute right-3 top-3 z-10 grid size-10 place-items-center rounded-full text-parchment hover:bg-parchment/10"
               >
                 <X className="size-5" aria-hidden />
               </button>

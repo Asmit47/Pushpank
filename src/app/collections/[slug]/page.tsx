@@ -26,8 +26,8 @@ export default async function CollectionPage({ params, searchParams }: PageProps
 
   return (
     <ListingView
-      title={category.name}
-      description={category.description}
+      title={category.hindi ? `${category.name}` : category.name}
+      description={category.hindi ? `${category.hindi}. ${category.description}` : category.description}
       crumbs={[{ label: "Home", href: "/" }, { label: "Shop", href: "/shop" }, { label: category.name }]}
       collection={category.slug}
       basePath={`/collections/${category.slug}`}

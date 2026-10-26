@@ -13,14 +13,13 @@ export function CampaignBlock() {
     <section aria-labelledby="campaign-title" className="py-6 lg:py-10">
       <Container>
         <Reveal>
-          <div className="grid overflow-hidden rounded-3xl bg-maroon text-ivory md:grid-cols-2">
+          <div className="grid overflow-hidden rounded-[20px] border border-gold/30 bg-maroon-900 text-parchment md:grid-cols-2">
             <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-14">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Seasonal collection</p>
-              <h2 id="campaign-title" className="mt-3 font-serif text-4xl font-semibold leading-tight sm:text-5xl">
+              <h2 id="campaign-title" className="font-serif text-4xl font-semibold leading-[1.1] text-gold-soft sm:text-5xl">
                 {c.title}
               </h2>
-              <p className="mt-4 max-w-md text-ivory/80">{c.description}</p>
-              <p className="mt-3 text-sm text-ivory/60">
+              <p className="mt-4 max-w-md text-parchment/80">{c.description}</p>
+              <p className="mt-3 text-sm text-parchment/60">
                 {c.endsOn && <>Collection available until {formatDate(c.endsOn)}. </>}
                 {c.terms}
               </p>

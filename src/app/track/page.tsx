@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 export default function TrackPage() {
   return (
     <Container className="max-w-xl py-10 lg:py-16">
-      <h1 className="text-4xl font-semibold text-maroon sm:text-5xl">Track an order or booking</h1>
+      <h1 className="text-4xl font-semibold text-gold-soft sm:text-5xl">Track an order or booking</h1>
       <p className="mt-3 text-muted">
         Enter the reference we gave you and the phone number you used. We ask for both to protect your details.
       </p>
-      <div className="mt-8 rounded-3xl border border-line bg-white p-5 shadow-card sm:p-8">
+      <div className="mt-8 rounded-3xl border border-line bg-sanctum p-5 shadow-card sm:p-8">
         <TrackForm />
       </div>
     </Container>

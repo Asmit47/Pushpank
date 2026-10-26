@@ -1,56 +1,30 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
-import { Media } from "@/components/ui/media";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { getCategories } from "@/lib/catalog";
+import { categories } from "@/data/categories";
 
 export function CategoryGrid() {
-  const categories = getCategories();
   return (
-    <section aria-labelledby="shop-by-category" className="py-12 lg:py-16">
+    <section aria-labelledby="categories" className="py-10">
       <Container>
-        <SectionHeading
-          id="shop-by-category"
-          eyebrow="Shop"
-          title="Shop by category"
-          description="Pick a collection and start adding to your cart."
-        />
-        <Stagger className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-6">
+        <h2 id="categories" className="text-3xl text-gold-soft sm:text-4xl">
+          <span lang="hi" className="mantra mr-3 text-gold">पुष्प</span>
+          What we keep
+        </h2>
+        <ul className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-6 md:grid-rows-2">
           {categories.map((c, i) => (
-            <StaggerItem
-              key={c.slug}
-              className={
-                i < 2 ? "col-span-1 lg:col-span-3" : i === 4 ? "col-span-2 lg:col-span-2" : "col-span-1 lg:col-span-2"
-              }
-            >
+            <li key={c.slug} className={i === 0 ? "md:col-span-3 md:row-span-2" : "md:col-span-3 lg:col-span-1"}>
               <Link
                 href={`/collections/${c.slug}`}
-                className="group relative block h-full overflow-hidden rounded-2xl border border-line bg-white shadow-card"
+                className="group relative block h-40 overflow-hidden rounded-[20px] border border-line md:h-full md:min-h-36"
               >
-                <Media
-                  src={c.image.src}
-                  alt={c.image.alt}
-                  width={800}
-                  height={600}
-                  sizes="(min-width: 1024px) 33vw, 50vw"
-                  wrapperClassName={i === 4 ? "aspect-[2/1] lg:aspect-[4/3]" : "aspect-[4/3]"}
-                  className="size-full transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal/80 via-charcoal/40 to-transparent p-3.5 pt-12 text-ivory sm:p-5 sm:pt-16">
-                  <h3 className="flex items-center justify-between gap-2 font-serif text-xl font-semibold leading-tight sm:text-2xl">
-                    {c.name}
-                    <ArrowUpRight
-                      className="size-5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      aria-hidden
-                    />
-                  </h3>
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={c.image.src} alt="" className="size-full object-cover transition duration-500 group-hover:-rotate-1 group-hover:scale-105" />
+                <span className="absolute inset-0 bg-gradient-to-t from-night/85 to-transparent" />
+                <span className="absolute bottom-3 left-4 font-serif text-xl text-parchment">{c.name}</span>
               </Link>
-            </StaggerItem>
+            </li>
           ))}
-        </Stagger>
+        </ul>
       </Container>
     </section>
   );

@@ -1,6 +1,6 @@
 import "server-only";
 import { randomBytes } from "node:crypto";
-import type { Booking, Order, QuoteRequest } from "@/types";
+import type { Booking, Order, PanditApplication, QuoteRequest } from "@/types";
 
 /**
  * STUB PERSISTENCE. Records live in process memory and are lost on restart.
@@ -11,6 +11,7 @@ type Db = {
   orders: Map<string, Order>;
   bookings: Map<string, Booking>;
   quotes: Map<string, QuoteRequest>;
+  panditApplications: Map<string, PanditApplication>;
 };
 
 const g = globalThis as unknown as { __pushpankDb?: Db };
@@ -18,6 +19,7 @@ const db: Db = (g.__pushpankDb ??= {
   orders: new Map(),
   bookings: new Map(),
   quotes: new Map(),
+  panditApplications: new Map(),
 });
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"; // base32, no look-alikes
@@ -52,4 +54,12 @@ export async function saveQuote(quote: QuoteRequest) {
 }
 export async function getQuote(reference: string) {
   return db.quotes.get(reference);
+}
+
+export async function savePanditApplication(application: PanditApplication) {
+  db.panditApplications.set(application.reference, application);
+  return application;
+}
+export async function getPanditApplication(reference: string) {
+  return db.panditApplications.get(reference);
 }

@@ -42,10 +42,10 @@ export default async function OrderConfirmationPage({ params }: PageProps<"/orde
       <ClearCart />
       <div className="text-center">
         <CheckCircle2 className="mx-auto size-12 text-forest" aria-hidden />
-        <h1 className="mt-4 text-4xl font-semibold text-maroon sm:text-5xl">Thank you, we have your order</h1>
+        <h1 className="mt-4 text-4xl font-semibold text-gold-soft sm:text-5xl">Thank you, we have your order</h1>
         <p className="mt-3 text-muted">
           Your order reference is{" "}
-          <strong className="select-all rounded bg-gold-100 px-2 py-0.5 font-mono text-charcoal">{order.reference}</strong>.
+          <strong className="select-all rounded bg-gold-100 px-2 py-0.5 font-mono text-parchment">{order.reference}</strong>.
           Keep it to track your order.
         </p>
       </div>
@@ -59,8 +59,8 @@ export default async function OrderConfirmationPage({ params }: PageProps<"/orde
         </span>
       </div>
 
-      <section className="mt-8 rounded-2xl border border-line bg-white p-5 sm:p-6" aria-labelledby="items">
-        <h2 id="items" className="text-2xl font-semibold text-maroon">
+      <section className="mt-8 rounded-2xl border border-line bg-sanctum p-5 sm:p-6" aria-labelledby="items">
+        <h2 id="items" className="text-2xl font-semibold text-gold-soft">
           Items
         </h2>
         <ul className="mt-3 divide-y divide-line">
@@ -101,11 +101,11 @@ export default async function OrderConfirmationPage({ params }: PageProps<"/orde
       </section>
 
       <div className="mt-6 grid gap-6 sm:grid-cols-2">
-        <section className="rounded-2xl border border-line bg-white p-5" aria-labelledby="deliver-to">
-          <h2 id="deliver-to" className="text-xl font-semibold text-maroon">
+        <section className="rounded-2xl border border-line bg-sanctum p-5" aria-labelledby="deliver-to">
+          <h2 id="deliver-to" className="text-xl font-semibold text-gold-soft">
             Delivering to
           </h2>
-          <address className="mt-2 text-sm not-italic leading-relaxed text-charcoal/80">
+          <address className="mt-2 text-sm not-italic leading-relaxed text-parchment/80">
             {order.customer.name}
             <br />
             {a.line1}, {a.locality}
@@ -116,11 +116,11 @@ export default async function OrderConfirmationPage({ params }: PageProps<"/orde
           </address>
           {order.deliveryNotes && <p className="mt-2 text-sm text-muted">Notes: {order.deliveryNotes}</p>}
         </section>
-        <section className="rounded-2xl border border-line bg-white p-5" aria-labelledby="next-steps">
-          <h2 id="next-steps" className="text-xl font-semibold text-maroon">
+        <section className="rounded-2xl border border-line bg-sanctum p-5" aria-labelledby="next-steps">
+          <h2 id="next-steps" className="text-xl font-semibold text-gold-soft">
             What happens next
           </h2>
-          <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm text-charcoal/80">
+          <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm text-parchment/80">
             <li>Our team reviews your order and delivery details.</li>
             <li>We contact you to confirm and share payment instructions.</li>
             <li>Your order is dispatched once confirmed.</li>
@@ -139,7 +139,7 @@ export default async function OrderConfirmationPage({ params }: PageProps<"/orde
       </div>
       <p className="mt-6 text-center text-sm text-muted">
         Need to change or cancel? Read our{" "}
-        <Link href="/shipping-returns" className="text-maroon underline">
+        <Link href="/shipping-returns" className="text-gold-soft underline">
           cancellation policy
         </Link>{" "}
         and contact us as soon as possible.

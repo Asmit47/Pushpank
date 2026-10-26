@@ -20,7 +20,7 @@ export function CartDrawer() {
   return (
     <Sheet open={open} onClose={close} side="right" label="Shopping cart">
       <div className="border-b border-line px-5 py-4">
-        <h2 className="text-2xl font-semibold text-maroon">Your cart</h2>
+        <h2 className="text-2xl font-semibold text-gold-soft">Your cart</h2>
       </div>
       {!hydrated || lines.length === 0 ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
@@ -39,7 +39,7 @@ export function CartDrawer() {
               <CartLine key={`${line.product.id}:${line.variant.id}`} line={line} compact />
             ))}
           </ul>
-          <div className="space-y-4 border-t border-line bg-white/60 px-5 py-4">
+          <div className="space-y-4 border-t border-line bg-sanctum/80 px-5 py-4">
             <CartSummary {...totals} />
             <div className="grid grid-cols-2 gap-3">
               <Button href="/cart" variant="secondary" onClick={close}>

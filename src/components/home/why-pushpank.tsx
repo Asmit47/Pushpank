@@ -13,21 +13,16 @@ const points = [
 
 export function WhyPushpank() {
   return (
-    <section aria-labelledby="why-pushpank" className="bg-forest py-14 text-ivory lg:py-16">
+    <section aria-labelledby="why-pushpank" className="bg-maroon-900 py-14 text-parchment lg:py-16">
       <Container>
-        <SectionHeading
-          id="why-pushpank"
-          title="Why order from Pushpank"
-          eyebrow="Our approach"
-          className="[&_h2]:text-ivory"
-        />
+        <SectionHeading id="why-pushpank" title="Why order from Pushpank" />
         <Stagger className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {points.map(({ icon: Icon, title, body }) => (
             <StaggerItem key={title}>
-              <div className="h-full rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="h-full rounded-2xl border border-white/10 bg-parchment/5 p-5">
                 <Icon className="size-6 text-gold" aria-hidden />
                 <h3 className="mt-4 font-sans text-base font-semibold">{title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-ivory/75">{body}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-parchment/75">{body}</p>
               </div>
             </StaggerItem>
           ))}

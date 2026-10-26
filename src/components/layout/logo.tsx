@@ -2,10 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 
-export function Logo({ className, light }: { className?: string; light?: boolean }) {
+export function Logo({ className }: { className?: string }) {
   return (
     <Link href="/" aria-label="Pushpank home" className={cn("inline-flex items-center gap-2", className)}>
-      <span className={cn("block", !light && "rounded bg-maroon p-0.5")}>
+      <span className="block">
         <Image
           src="/images/brand/pushpank-logo.png"
           alt=""

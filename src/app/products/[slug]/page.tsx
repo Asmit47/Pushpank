@@ -82,9 +82,19 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             height={1024}
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
-            wrapperClassName="aspect-square rounded-3xl border border-line bg-white"
+            wrapperClassName="aspect-square rounded-3xl border border-line bg-sanctum"
             className="size-full"
           />
+          {product.highlights && product.highlights.length > 0 && (
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {product.highlights.map((h) => (
+                <li key={h} className="rounded-full border border-gold/30 px-3 py-1 text-sm text-gold-soft">{h}</li>
+              ))}
+            </ul>
+          )}
+          {product.secondaryImage && (
+            <p className="mt-3 text-sm text-muted">Delivery is confirmed for Lucknow pincodes at checkout.</p>
+          )}
           {product.images.length > 1 && (
             <ul className="grid grid-cols-4 gap-3">
               {product.images.slice(1).map((img) => (
@@ -104,10 +114,10 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           )}
         </div>
 
-        <div>
-          {category && <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">{category.name}</p>}
-          <h1 className="mt-2 text-4xl font-semibold leading-tight text-maroon sm:text-5xl">{product.name}</h1>
-          <p className="mt-3 text-charcoal/75">{product.shortDescription}</p>
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          {category && <p className="text-sm text-gold">{category.name}</p>}
+          <h1 className="mt-2 text-4xl font-semibold leading-tight text-gold-soft sm:text-5xl">{product.name}</h1>
+          <p className="mt-3 text-parchment/75">{product.shortDescription}</p>
           <div className="mt-6">
             <ProductPurchase product={product} />
           </div>
@@ -119,11 +129,11 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       </div>
 
       <Reveal className="mt-14 grid gap-6 lg:grid-cols-3">
-        <section className="rounded-2xl border border-line bg-white p-6 lg:col-span-2">
-          <h2 className="text-2xl font-semibold text-maroon">About this product</h2>
-          <p className="mt-3 leading-relaxed text-charcoal/80">{product.description}</p>
+        <section className="rounded-2xl border border-line bg-sanctum p-6 lg:col-span-2">
+          <h2 className="text-2xl font-semibold text-gold-soft">About this product</h2>
+          <p className="mt-3 leading-relaxed text-parchment/80">{product.description}</p>
 
-          <h3 className="mt-6 text-xl font-semibold text-maroon">What is included</h3>
+          <h3 className="mt-6 text-xl font-semibold text-gold-soft">What is included</h3>
           <ul className="mt-3 grid gap-2 text-[0.95rem] sm:grid-cols-2">
             {product.inclusions.map((i) => (
               <li key={i} className="flex gap-2">
@@ -135,7 +145,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
           {product.details.length > 0 && (
             <>
-              <h3 className="mt-6 text-xl font-semibold text-maroon">Details</h3>
+              <h3 className="mt-6 text-xl font-semibold text-gold-soft">Details</h3>
               <dl className="mt-3 divide-y divide-line text-[0.95rem]">
                 {product.details.map((d) => (
                   <div key={d.label} className="flex justify-between gap-4 py-2.5">
@@ -157,13 +167,13 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               <p className="mt-2 text-sm leading-relaxed">{product.storage}</p>
             </section>
           )}
-          <section className="rounded-2xl border border-line bg-white p-5">
+          <section className="rounded-2xl border border-line bg-sanctum p-5">
             <h2 className="font-sans text-base font-semibold">Delivery and cancellation</h2>
-            <p className="mt-2 text-sm leading-relaxed text-charcoal/75">
+            <p className="mt-2 text-sm leading-relaxed text-parchment/75">
               {product.perishable
                 ? "Fresh flowers are perishable. Orders can be cancelled only before dispatch. See our policy for details."
                 : "Delivery charges are shown before you pay. See our policy for cancellation and returns."}{" "}
-              <Link href="/shipping-returns" className="font-medium text-maroon underline underline-offset-2">
+              <Link href="/shipping-returns" className="font-medium text-gold-soft underline underline-offset-2">
                 Read the policy
               </Link>
               .

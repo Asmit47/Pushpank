@@ -1,15 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cormorant_Garamond, Manrope, Tiro_Devanagari_Sanskrit } from "next/font/google";
 import { CartHydrator } from "@/components/cart/cart-hydrator";
 import { FloatingActions } from "@/components/layout/floating-actions";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { MotionProvider } from "@/components/motion/motion-provider";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { site } from "@/data/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   display: "swap",
 });
@@ -17,7 +18,15 @@ const inter = Inter({
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const tiro = Tiro_Devanagari_Sanskrit({
+  variable: "--font-tiro",
+  subsets: ["devanagari", "latin"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -38,20 +47,22 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F7F1E6",
+  themeColor: "#120a0b",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
-      <body className="flex min-h-dvh flex-col">
+    <html lang="en" data-scroll-behavior="smooth" className={`${manrope.variable} ${cormorant.variable} ${tiro.variable}`}>
+      <body className="flex min-h-dvh flex-col bg-night text-parchment">
+        <div className="grain" aria-hidden />
         <MotionProvider>
+          <ScrollProgress />
           <CartHydrator />
           <a
             href="#main"
-            className="sr-only z-[60] rounded-full bg-maroon px-4 py-2 text-ivory focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+            className="sr-only z-[60] rounded-full bg-gold px-4 py-2 text-ivory focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
           >
             Skip to content
           </a>

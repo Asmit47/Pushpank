@@ -67,8 +67,8 @@ export function ProductPurchase({ product }: { product: Product }) {
                 <label
                   key={v.id}
                   className={cn(
-                    "relative cursor-pointer rounded-xl border px-4 py-2.5 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-maroon",
-                    selected ? "border-maroon bg-maroon/5 text-maroon" : "border-line bg-white hover:border-maroon/50",
+                    "relative cursor-pointer rounded-xl border px-4 py-2.5 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-gold",
+                    selected ? "border-gold bg-gold/10 text-gold-soft" : "border-line bg-sanctum hover:border-gold/50",
                     !v.inStock && "text-muted",
                   )}
                 >
@@ -111,12 +111,12 @@ export function ProductPurchase({ product }: { product: Product }) {
       </div>
 
       {!anyInStock && (
-        <p className="rounded-xl bg-charcoal/5 p-4 text-sm text-charcoal/80">
+        <p className="rounded-xl bg-parchment/8 p-4 text-sm text-parchment/80">
           This product is currently unavailable. Browse similar items below or contact us on WhatsApp to ask about restocking.
         </p>
       )}
 
-      <form onSubmit={checkPincode} className="rounded-2xl border border-line bg-white p-4" noValidate>
+      <form onSubmit={checkPincode} className="rounded-2xl border border-line bg-sanctum p-4" noValidate>
         <label htmlFor="pdp-pincode" className="flex items-center gap-2 text-sm font-medium">
           <MapPin className="size-4 text-gold" aria-hidden /> Check delivery
         </label>
@@ -133,7 +133,7 @@ export function ProductPurchase({ product }: { product: Product }) {
             }}
             placeholder="Enter 6-digit pincode"
             aria-describedby="pdp-pincode-result"
-            className="h-11 min-w-0 flex-1 rounded-xl border border-line bg-white px-3.5 text-sm focus:border-maroon focus:outline-none focus:ring-2 focus:ring-maroon/20"
+            className="h-11 min-w-0 flex-1 rounded-xl border border-line bg-sanctum px-3.5 text-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
           />
           <Button type="submit" variant="secondary" size="md">
             Check

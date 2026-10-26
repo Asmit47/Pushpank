@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SearchX } from "lucide-react";
 import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
@@ -25,7 +26,14 @@ export function ProductGrid({ products, clearHref }: { products: Product[]; clea
     <Stagger key={products.map((p) => p.id).join(",")} gap={0.04}>
       <ul className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((p, i) => (
-          <li key={p.id}>
+          <li key={p.id} className="contents">
+            {i > 0 && i % 8 === 0 && (
+              <div className="col-span-2 flex min-h-36 items-end rounded-[20px] bg-maroon-900 p-6 lg:col-span-3">
+                <Link href="/collections/festival-collections" className="font-serif text-3xl text-gold-soft">
+                  Build your Diwali thali
+                </Link>
+              </div>
+            )}
             <StaggerItem className="h-full">
               <ProductCard product={p} priority={i < 4} />
             </StaggerItem>

@@ -14,7 +14,7 @@ export function FaqSection() {
         </div>
         <p className="mt-5 text-center text-sm text-muted">
           More questions?{" "}
-          <Link href="/contact" className="font-medium text-maroon hover:underline">
+          <Link href="/contact" className="font-medium text-gold-soft hover:underline">
             Contact us
           </Link>
         </p>

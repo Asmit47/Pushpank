@@ -3,7 +3,7 @@
 import { normalizePhone } from "@/lib/phone";
 import { trackSchema } from "@/lib/schemas";
 import { rateLimit } from "@/lib/server/rate-limit";
-import { getBooking, getOrder } from "@/lib/server/store";
+import { getBooking, getOrder, getPanditApplication } from "@/lib/server/store";
 import { fieldErrorsFrom, GENERIC_FAILURE, RATE_LIMITED } from "./shared";
 import type { ActionResult } from "./shared";
 
@@ -31,9 +31,13 @@ export async function trackReference(input: unknown): Promise<ActionResult<{ hre
     if (booking && booking.customer.phone === normalized) {
       return { ok: true, data: { href: `/bookings/${reference}` } };
     }
+    const application = await getPanditApplication(reference);
+    if (application && application.phone === normalized) {
+      return { ok: true, data: { href: `/pandits/register/${reference}` } };
+    }
     return {
       ok: false,
-      message: "We could not find an order or booking matching that reference and phone number.",
+      message: "We could not find an order, booking or pandit application matching that reference and phone number.",
     };
   } catch (error) {
     console.error("trackReference failed", error);

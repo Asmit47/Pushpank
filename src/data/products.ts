@@ -1,4 +1,5 @@
 import type { Product } from "@/types";
+import { extraProducts } from "./products-extra";
 
 /**
  * PLACEHOLDER CATALOGUE: names, prices, variants, stock and imagery are samples.
@@ -29,7 +30,10 @@ export const products: Product[] = [
     perishable: true,
     featured: true,
     createdAt: "2026-09-20",
-    occasions: ["Daily worship", "Festivals"],
+    occasions: ["daily-puja", "diwali"],
+    badge: "Bestseller",
+    isFeatured: true,
+    highlights: ["Strung the same day", "Doorway length available"],
   },
   {
     id: "prd_rose_petals",
@@ -54,7 +58,8 @@ export const products: Product[] = [
     perishable: true,
     featured: true,
     createdAt: "2026-09-25",
-    occasions: ["Daily worship", "Decoration"],
+    occasions: ["daily-puja", "weddings"],
+    badge: "Same-day",
   },
   {
     id: "prd_brass_diya_set",
@@ -77,7 +82,9 @@ export const products: Product[] = [
     perishable: false,
     featured: true,
     createdAt: "2026-10-01",
-    occasions: ["Diwali", "Daily worship"],
+    occasions: ["diwali", "daily-puja"],
+    badge: "Bestseller",
+    isFeatured: true,
   },
   {
     id: "prd_puja_thali",
@@ -100,7 +107,8 @@ export const products: Product[] = [
     perishable: false,
     featured: true,
     createdAt: "2026-08-14",
-    occasions: ["Daily worship", "Gifting"],
+    occasions: ["daily-puja", "weddings"],
+    badge: "Bestseller",
   },
   {
     id: "prd_incense_set",
@@ -122,7 +130,7 @@ export const products: Product[] = [
     perishable: false,
     featured: false,
     createdAt: "2026-07-30",
-    occasions: ["Daily worship"],
+    occasions: ["daily-puja"],
   },
   {
     id: "prd_satyanarayan_kit",
@@ -146,7 +154,9 @@ export const products: Product[] = [
     perishable: false,
     featured: true,
     createdAt: "2026-09-02",
-    occasions: ["Satyanarayan Katha"],
+    occasions: ["daily-puja"],
+    badge: "Bestseller",
+    isFeatured: true,
   },
   {
     id: "prd_havan_kit",
@@ -166,7 +176,7 @@ export const products: Product[] = [
     perishable: false,
     featured: false,
     createdAt: "2026-09-10",
-    occasions: ["Havan", "Griha Pravesh"],
+    occasions: ["griha-pravesh"],
   },
   {
     id: "prd_diwali_hamper",
@@ -186,7 +196,9 @@ export const products: Product[] = [
     perishable: false,
     featured: true,
     createdAt: "2026-10-12",
-    occasions: ["Diwali", "Gifting"],
+    occasions: ["diwali"],
+    badge: "Festive",
+    isFeatured: true,
   },
   {
     id: "prd_rangoli_set",
@@ -203,6 +215,7 @@ export const products: Product[] = [
     perishable: false,
     featured: false,
     createdAt: "2026-10-15",
-    occasions: ["Diwali"],
+    occasions: ["diwali"],
   },
+  ...extraProducts,
 ];

@@ -28,7 +28,7 @@ export function ArrangementsSection() {
             <StaggerItem key={d.slug}>
               <Link
                 href={`/decorations-events#${d.slug}`}
-                className="group block overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-shadow hover:shadow-lift"
+                className="group block overflow-hidden rounded-[20px] border border-line bg-sanctum shadow-card transition-shadow hover:shadow-lift"
               >
                 <Media
                   src={d.image.src}
@@ -40,9 +40,9 @@ export function ArrangementsSection() {
                   className="size-full transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
                 />
                 <div className="p-5">
-                  <h3 className="text-2xl font-semibold text-maroon">{d.name}</h3>
-                  <p className="mt-2 text-[0.95rem] text-charcoal/75">{d.description}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-maroon">
+                  <h3 className="text-2xl font-semibold text-gold-soft">{d.name}</h3>
+                  <p className="mt-2 text-[0.95rem] text-parchment/75">{d.description}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold-soft">
                     Learn more <ArrowRight className="size-4" aria-hidden />
                   </span>
                 </div>

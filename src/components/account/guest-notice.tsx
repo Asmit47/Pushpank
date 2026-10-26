@@ -4,7 +4,7 @@ import { ContentPage } from "@/components/ui/content-page";
 export function GuestNotice({ title, what }: { title: string; what: string }) {
   return (
     <ContentPage title={title} intro={`Accounts are not part of this first version. You can ${what} as a guest.`}>
-      <div className="rounded-2xl border border-line bg-white p-6">
+      <div className="rounded-2xl border border-line bg-sanctum p-6">
         <h2>Looking for an order or booking?</h2>
         <p className="mt-1 text-sm">
           Use your reference number and the phone number you gave us to see the latest status.

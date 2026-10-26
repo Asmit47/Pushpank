@@ -1,27 +1,34 @@
 import type { Metadata } from "next";
-import { ExternalLink } from "lucide-react";
-import { ContentPage } from "@/components/ui/content-page";
-import { site, whatsappLink } from "@/data/site";
+import { Container } from "@/components/ui/container";
+import { ReviewsRing } from "@/components/reviews/reviews-ring";
+import { getGoogleReviews } from "@/lib/server/google-reviews";
 
 export const metadata: Metadata = {
-  title: "Customer reviews",
-  description: "Genuine customer feedback for Pushpank.",
+  title: "Reviews",
+  description: "Customer reviews of Pushpank, shown from Google.",
 };
 
-export default function ReviewsPage() {
+export default async function ReviewsPage() {
+  const data = await getGoogleReviews();
+  const write = data?.mapsUrl ? `${data.mapsUrl}` : undefined;
   return (
-    <ContentPage title="Customer reviews" intro="We only publish genuine feedback, with permission and attribution.">
-      <div className="rounded-2xl border border-dashed border-gold/60 bg-white p-8 text-center">
-        <p>Verified reviews will appear here once we have them. We do not publish invented reviews or ratings.</p>
-        <div className="mt-5 flex flex-wrap justify-center gap-5 text-sm font-medium">
-          {site.reviewsUrl && (
-            <a href={site.reviewsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5">
-              Read reviews on Google <ExternalLink className="size-4" aria-hidden />
-            </a>
+    <Container className="py-12">
+      <h1 className="text-4xl text-gold-soft sm:text-5xl">Reviews</h1>
+      <p className="mt-3 max-w-xl text-parchment/80">These are Google reviews. Pushpank does not write or edit them.</p>
+      {data ? (
+        <div className="mt-10">
+          <ReviewsRing data={data} />
+          {write && (
+            <p className="mt-8 text-center">
+              <a href={write} className="text-gold-soft underline" target="_blank" rel="noopener noreferrer">Write a review on Google</a>
+            </p>
           )}
-          <a href={whatsappLink("Hello Pushpank, I would like to share feedback.")}>Share your feedback</a>
         </div>
-      </div>
-    </ContentPage>
+      ) : (
+        <p className="mt-8 rounded-[20px] border border-dashed border-gold/40 bg-sanctum p-8 text-parchment/80">
+          Connect a Google Place ID to show live reviews. Until then, nothing is invented here.
+        </p>
+      )}
+    </Container>
   );
 }

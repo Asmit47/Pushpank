@@ -22,7 +22,7 @@ export function CategoryChips({ activeSlug }: { activeSlug?: string }) {
                   "inline-block rounded-full border px-4 py-2 text-sm transition-colors",
                   active
                     ? "border-forest bg-forest text-ivory"
-                    : "border-line bg-white hover:border-forest/50",
+                    : "border-line bg-sanctum hover:border-forest/50",
                 )}
               >
                 {c.name}

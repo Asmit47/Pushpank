@@ -16,7 +16,7 @@ export function CartView() {
   const hasUnavailable = lines.some((l) => !l.available);
 
   if (!hydrated) {
-    return <div className="h-64 animate-pulse rounded-2xl bg-white/70" aria-label="Loading your cart" role="status" />;
+    return <div className="h-64 animate-pulse rounded-2xl bg-sanctum/80" aria-label="Loading your cart" role="status" />;
   }
 
   if (lines.length === 0) {
@@ -32,13 +32,13 @@ export function CartView() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-start">
-      <ul className="divide-y divide-line rounded-2xl border border-line bg-white px-4 sm:px-6">
+      <ul className="divide-y divide-line rounded-2xl border border-line bg-sanctum px-4 sm:px-6">
         {lines.map((line) => (
           <CartLine key={`${line.product.id}:${line.variant.id}`} line={line} />
         ))}
       </ul>
-      <aside className="space-y-4 rounded-2xl border border-line bg-white p-5 lg:sticky lg:top-24">
-        <h2 className="text-2xl font-semibold text-maroon">Order summary</h2>
+      <aside className="space-y-4 rounded-2xl border border-line bg-sanctum p-5 lg:sticky lg:top-24">
+        <h2 className="text-2xl font-semibold text-gold-soft">Order summary</h2>
         <CartSummary {...totals} />
         {hasUnavailable && (
           <p role="alert" className="rounded-lg bg-danger/10 p-3 text-sm text-danger">

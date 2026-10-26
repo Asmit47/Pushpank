@@ -16,6 +16,7 @@ export default function AboutPage() {
         <strong>Placeholder.</strong> Replace this page with Pushpank&apos;s verified story, team and credentials. Avoid
         claims that cannot be supported, such as awards, years in business or superlatives.
       </p>
+      <img src="/images/generated/about-courtyard.jpg" alt="Marigold garlands and brass lamps in a courtyard at dusk" className="w-full rounded-[20px] object-cover" />
       <section>
         <h2>What we do</h2>
         <ul>

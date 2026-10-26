@@ -25,10 +25,10 @@ export default function DecorationsPage() {
       <Container className="pt-8 lg:pt-12">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Decorations & Events" }]} />
         <header className="mt-4 max-w-3xl">
-          <h1 className="text-4xl font-semibold leading-tight text-maroon sm:text-6xl">
+          <h1 className="text-4xl font-semibold leading-tight text-gold-soft sm:text-6xl">
             Decorations and arrangements for your puja or event
           </h1>
-          <p className="mt-4 text-lg text-charcoal/75">
+          <p className="mt-4 text-lg text-parchment/75">
             From a home puja corner to a festival setup. Every arrangement is quoted on your venue, materials and scope.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -50,7 +50,7 @@ export default function DecorationsPage() {
               <Reveal key={d.slug}>
                 <article
                   id={d.slug}
-                  className="grid scroll-mt-28 items-center gap-6 overflow-hidden rounded-3xl border border-line bg-white md:grid-cols-2"
+                  className="grid scroll-mt-28 items-center gap-6 overflow-hidden rounded-3xl border border-line bg-sanctum md:grid-cols-2"
                 >
                   <Media
                     src={d.image.src}
@@ -62,11 +62,11 @@ export default function DecorationsPage() {
                     className="size-full"
                   />
                   <div className="p-6 sm:p-9">
-                    <h3 className="text-3xl font-semibold text-maroon">{d.name}</h3>
-                    <p className="mt-3 text-charcoal/75">{d.description}</p>
+                    <h3 className="text-3xl font-semibold text-gold-soft">{d.name}</h3>
+                    <p className="mt-3 text-parchment/75">{d.description}</p>
                     <ul className="mt-4 flex flex-wrap gap-2 text-sm">
                       {d.examples.map((e) => (
-                        <li key={e} className="rounded-full bg-ivory px-3 py-1">
+                        <li key={e} className="rounded-full bg-night px-3 py-1">
                           {e}
                         </li>
                       ))}
@@ -83,15 +83,15 @@ export default function DecorationsPage() {
         </Container>
       </section>
 
-      <section aria-labelledby="how-title" className="bg-white/60 py-14 lg:py-16">
+      <section aria-labelledby="how-title" className="bg-sanctum/80 py-14 lg:py-16">
         <Container>
           <SectionHeading id="how-title" title="How it works" />
           <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {decorationSteps.map((s, i) => (
-              <li key={s.title} className="rounded-2xl border border-line bg-white p-5">
+              <li key={s.title} className="rounded-2xl border border-line bg-sanctum p-5">
                 <span className="font-serif text-4xl font-semibold text-gold">{i + 1}</span>
                 <h3 className="mt-2 font-sans text-base font-semibold">{s.title}</h3>
-                <p className="mt-1 text-sm text-charcoal/75">{s.body}</p>
+                <p className="mt-1 text-sm text-parchment/75">{s.body}</p>
               </li>
             ))}
           </ol>
@@ -110,12 +110,12 @@ export default function DecorationsPage() {
             description="Tell us about your event. A quote request does not confirm the service."
             align="center"
           />
-          <div className="mt-8 rounded-3xl border border-line bg-white p-5 shadow-card sm:p-8">
+          <div className="mt-8 rounded-3xl border border-line bg-sanctum p-5 shadow-card sm:p-8">
             <QuoteForm />
           </div>
           <p className="mt-5 text-center text-sm text-muted">
             Prefer to talk?{" "}
-            <a href={whatsappLink("Hello Pushpank, I would like a decoration quote.")} className="font-medium text-maroon underline">
+            <a href={whatsappLink("Hello Pushpank, I would like a decoration quote.")} className="font-medium text-gold-soft underline">
               Message us on WhatsApp
             </a>
             .

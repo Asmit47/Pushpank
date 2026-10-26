@@ -19,14 +19,14 @@ export function QuantityStepper({
   size?: "sm" | "md";
 }) {
   const btn = cn(
-    "grid place-items-center text-charcoal transition-colors hover:bg-charcoal/5 disabled:opacity-40 disabled:hover:bg-transparent",
+    "grid place-items-center text-parchment transition-colors hover:bg-parchment/8 disabled:opacity-40 disabled:hover:bg-transparent",
     size === "sm" ? "size-8" : "size-10",
   );
   return (
     <div
       role="group"
       aria-label={label}
-      className="inline-flex items-center overflow-hidden rounded-full border border-line bg-white"
+      className="inline-flex items-center overflow-hidden rounded-full border border-line bg-sanctum"
     >
       <button
         type="button"
