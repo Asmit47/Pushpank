@@ -17,8 +17,8 @@ export function WhyPushpank() {
       <Container>
         <SectionHeading id="why-pushpank" eyebrow="Our promise" title="Why order from Pushpank" align="center" />
         <Stagger className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-line/70">
-          {points.map(({ icon: Icon, title, body }) => (
-            <StaggerItem key={title} className="lg:px-8 lg:first:pl-0 lg:last:pr-0">
+          {points.map(({ icon: Icon, title, body }, index) => (
+            <StaggerItem key={title} index={index} className="lg:px-8 lg:first:pl-0 lg:last:pr-0">
               <div className="text-center lg:text-left">
                 <span className="inline-grid size-11 place-items-center rounded-full border border-gold/35 bg-gold/8 text-gold">
                   <Icon className="size-5" strokeWidth={1.5} aria-hidden />

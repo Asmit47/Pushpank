@@ -23,7 +23,7 @@ export function ProductGrid({ products, clearHref }: { products: Product[]; clea
   }
   return (
     // Keyed by the product set so the stagger replays when filters change.
-    <Stagger key={products.map((p) => p.id).join(",")} gap={0.04}>
+    <Stagger key={products.map((p) => p.id).join(",")}>
       <ul className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((p, i) => (
           <li key={p.id} className="contents">
@@ -54,7 +54,7 @@ export function ProductGrid({ products, clearHref }: { products: Product[]; clea
                 </div>
               </div>
             )}
-            <StaggerItem className="h-full">
+            <StaggerItem index={i} className="h-full">
               <ProductCard product={p} priority={i < 4} />
             </StaggerItem>
           </li>

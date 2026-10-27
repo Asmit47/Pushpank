@@ -24,9 +24,9 @@ export function FeaturedProducts() {
         />
         <Stagger className="-mx-4 mt-8 sm:mx-0">
           <ul className="hide-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-4">
-            {products.map((p) => (
+            {products.map((p, i) => (
               <li key={p.id} className="w-[68%] shrink-0 snap-start sm:w-auto">
-                <StaggerItem className="h-full">
+                <StaggerItem index={i} className="h-full">
                   <ProductCard product={p} />
                 </StaggerItem>
               </li>

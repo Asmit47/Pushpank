@@ -1,98 +1,70 @@
-"use client";
+import type { CSSProperties, ReactNode } from "react";
+import { cn } from "@/lib/cn";
 
-import { motion } from "motion/react";
-import type { ReactNode } from "react";
+/**
+ * Entrance animations are plain CSS (see `enter` keyframes in globals.css) so
+ * content is never hidden behind JavaScript: keyframes run without hydration,
+ * and every rule is scoped to `prefers-reduced-motion: no-preference`.
+ */
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-/** Scroll-triggered fade/slide. Content is fully readable without motion (reduced-motion handled by MotionConfig). */
+/** Scroll-triggered fade/slide via CSS scroll-driven animations where supported; fully visible otherwise. */
 export function Reveal({
   children,
-  delay = 0,
-  y = 16,
   className,
-  as = "div",
 }: {
   children: ReactNode;
-  delay?: number;
-  y?: number;
   className?: string;
-  as?: "div" | "section" | "li";
 }) {
-  const Comp = motion[as];
-  return (
-    <Comp
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-      transition={{ duration: 0.5, delay, ease }}
-    >
-      {children}
-    </Comp>
-  );
+  return <div className={cn("reveal", className)}>{children}</div>;
 }
 
 export function Stagger({
   children,
   className,
-  gap = 0.06,
 }: {
   children: ReactNode;
   className?: string;
-  gap?: number;
 }) {
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-      variants={{ hidden: {}, show: { transition: { staggerChildren: gap } } }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={cn("stagger", className)}>{children}</div>;
 }
 
 export function StaggerItem({
   children,
   className,
+  index = 0,
 }: {
   children: ReactNode;
   className?: string;
+  index?: number;
 }) {
   return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: 14 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.45, ease } },
-      }}
-    >
+    <div className={cn("stagger-item", className)} style={{ "--stagger-i": index } as CSSProperties}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
-/** Immediate (on-mount) fade/slide for above-the-fold content. */
+/** Immediate (on-load) fade/slide for above-the-fold content. */
 export function FadeIn({
   children,
   delay = 0,
+  duration,
   className,
 }: {
   children: ReactNode;
+  /** Seconds. */
   delay?: number;
+  /** Seconds. */
+  duration?: number;
   className?: string;
 }) {
+  const style = {
+    "--enter-delay": `${delay}s`,
+    ...(duration != null && { "--enter-duration": `${duration}s` }),
+  } as CSSProperties;
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay, ease }}
-    >
+    <div className={cn("fade-in", className)} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

@@ -39,7 +39,7 @@ export default function PujaServicesPage() {
       <div id="rituals" className="scroll-mt-28">
       <Stagger className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {services.map((s, index) => (
-          <StaggerItem key={s.slug}>
+          <StaggerItem key={s.slug} index={index}>
             <ServiceCard service={s} eagerImage={index === 0} />
           </StaggerItem>
         ))}

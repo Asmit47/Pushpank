@@ -5,35 +5,13 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-
-const ease = [0.22, 1, 0.36, 1] as const;
+import { FadeIn } from "@/components/motion/reveal";
 
 const trust = [
   "Same-day delivery in Lucknow",
   "Free delivery above ₹999",
   "Samagri kits for every ritual",
 ];
-
-function Stage({
-  children,
-  delay,
-  className,
-}: {
-  children: React.ReactNode;
-  delay: number;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 22 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay, ease }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -71,26 +49,26 @@ export function Hero() {
 
       <Container className="relative flex min-h-[calc(100dvh-8.5rem)] items-start pb-28 pt-10 lg:items-center lg:pb-16 lg:pt-16">
         <div className="max-w-xl">
-          <Stage delay={0.05}>
+          <FadeIn delay={0.05} duration={0.7}>
             <p className="flex items-center gap-3" lang="hi">
               <span aria-hidden className="h-px w-10 bg-gold/70" />
               <span className="mantra text-lg tracking-wide text-gold">पुष्पांक</span>
             </p>
-          </Stage>
+          </FadeIn>
 
-          <Stage delay={0.15}>
+          <FadeIn delay={0.15} duration={0.7}>
             <h1 id="hero-title" className="display-hero mt-5 text-parchment">
               Everything for your <em className="text-gold-soft">puja</em>, at the door.
             </h1>
-          </Stage>
+          </FadeIn>
 
-          <Stage delay={0.28}>
+          <FadeIn delay={0.28} duration={0.7}>
             <p className="mt-6 max-w-md text-base leading-relaxed text-parchment/80 sm:text-lg">
               Fresh flowers, samagri and a pandit for worship at home in Lucknow.
             </p>
-          </Stage>
+          </FadeIn>
 
-          <Stage delay={0.4}>
+          <FadeIn delay={0.4} duration={0.7}>
             <div className="mt-9 flex flex-wrap gap-3">
               <Button href="/shop" size="lg" magnetic>
                 Shop Samagri
@@ -99,9 +77,9 @@ export function Hero() {
                 Book a Pandit
               </Button>
             </div>
-          </Stage>
+          </FadeIn>
 
-          <Stage delay={0.55}>
+          <FadeIn delay={0.55} duration={0.7}>
             <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.8rem] text-parchment/65">
               {trust.map((t) => (
                 <li key={t} className="flex items-center gap-2">
@@ -110,7 +88,7 @@ export function Hero() {
                 </li>
               ))}
             </ul>
-          </Stage>
+          </FadeIn>
         </div>
       </Container>
     </section>

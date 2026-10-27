@@ -24,8 +24,8 @@ export function ArrangementsSection() {
           }
         />
         <Stagger className="mt-12 grid gap-5 md:grid-cols-3">
-          {cards.map((d) => (
-            <StaggerItem key={d.slug}>
+          {cards.map((d, index) => (
+            <StaggerItem key={d.slug} index={index}>
               <Link
                 href={`/decorations-events#${d.slug}`}
                 className="group block h-full overflow-hidden rounded-[20px] border border-line bg-sanctum shadow-card transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-gold/35 hover:shadow-lift motion-reduce:transition-none"
