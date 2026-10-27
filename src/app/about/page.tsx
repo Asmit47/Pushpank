@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ContentPage } from "@/components/ui/content-page";
 
 export const metadata: Metadata = {
   title: "About Pushpank",
   description: "Pushpank is a Lucknow-based business for fresh flowers, puja samagri, pandit bookings and arrangements.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
@@ -11,12 +13,20 @@ export default function AboutPage() {
     <ContentPage
       title="About Pushpank"
       intro="A Lucknow-based business for fresh flowers, puja essentials and ritual services."
+      hindi="पुष्पांक"
     >
       <p className="rounded-xl border border-gold/50 bg-gold-100/60 p-4 text-sm">
         <strong>Placeholder.</strong> Replace this page with Pushpank&apos;s verified story, team and credentials. Avoid
         claims that cannot be supported, such as awards, years in business or superlatives.
       </p>
-      <img src="/images/generated/about-courtyard.jpg" alt="Marigold garlands and brass lamps in a courtyard at dusk" className="w-full rounded-[20px] object-cover" />
+      <Image
+        src="/images/generated/about-courtyard.jpg"
+        alt="Marigold garlands and brass lamps in a courtyard at dusk"
+        width={1536}
+        height={1024}
+        sizes="(min-width: 768px) 48rem, 100vw"
+        className="w-full rounded-[20px] object-cover"
+      />
       <section>
         <h2>What we do</h2>
         <ul>

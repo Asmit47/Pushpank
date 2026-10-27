@@ -9,10 +9,11 @@ import { ServiceCard } from "./service-card";
 export function BookPujaSection() {
   const services = getServices();
   return (
-    <section aria-labelledby="book-a-puja" className="bg-sanctum/80 py-14 lg:py-20">
+    <section aria-labelledby="book-a-puja" className="sanctum-glow border-y border-line/60 bg-sanctum/60 py-16 lg:py-24">
       <Container>
         <SectionHeading
           id="book-a-puja"
+          eyebrow="Puja services"
           title="A pandit, when you need one"
           description="Choose a ritual. We check availability and confirm by phone."
           action={
@@ -21,7 +22,7 @@ export function BookPujaSection() {
             </Button>
           }
         />
-        <Stagger className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <Stagger className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => (
             <StaggerItem key={s.slug}>
               <ServiceCard service={s} />

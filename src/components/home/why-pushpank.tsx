@@ -13,16 +13,18 @@ const points = [
 
 export function WhyPushpank() {
   return (
-    <section aria-labelledby="why-pushpank" className="bg-maroon-900 py-14 text-parchment lg:py-16">
+    <section aria-labelledby="why-pushpank" className="border-y border-line/70 bg-maroon-900/40 py-16 lg:py-20">
       <Container>
-        <SectionHeading id="why-pushpank" title="Why order from Pushpank" />
-        <Stagger className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionHeading id="why-pushpank" eyebrow="Our promise" title="Why order from Pushpank" align="center" />
+        <Stagger className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-line/70">
           {points.map(({ icon: Icon, title, body }) => (
-            <StaggerItem key={title}>
-              <div className="h-full rounded-2xl border border-white/10 bg-parchment/5 p-5">
-                <Icon className="size-6 text-gold" aria-hidden />
-                <h3 className="mt-4 font-sans text-base font-semibold">{title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-parchment/75">{body}</p>
+            <StaggerItem key={title} className="lg:px-8 lg:first:pl-0 lg:last:pr-0">
+              <div className="text-center lg:text-left">
+                <span className="inline-grid size-11 place-items-center rounded-full border border-gold/35 bg-gold/8 text-gold">
+                  <Icon className="size-5" strokeWidth={1.5} aria-hidden />
+                </span>
+                <h3 className="mt-4 font-sans text-[0.95rem] font-semibold tracking-wide text-parchment">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-parchment/65">{body}</p>
               </div>
             </StaggerItem>
           ))}

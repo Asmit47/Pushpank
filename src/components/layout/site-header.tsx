@@ -9,13 +9,12 @@ import { Container } from "@/components/ui/container";
 import { Sheet } from "@/components/ui/sheet";
 import { mainNav } from "@/data/site";
 import { useCart, useCartHydrated } from "@/lib/cart-store";
-import { AnnouncementBar } from "./announcement-bar";
+import { TopStrip } from "./announcement-bar";
 import { Logo } from "./logo";
 import { MegaNav } from "./mega-menu";
 import { MobileTabBar } from "./mobile-tab-bar";
 import { PincodeCheck } from "./pincode-check";
 import { SearchDialog } from "./search-dialog";
-import { UtilityBar } from "./utility-bar";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,9 +33,12 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-line bg-night/90 backdrop-blur">
-        <AnnouncementBar hidden={compact} />
-        <UtilityBar hidden={compact} />
+      <header
+        className={`sticky top-0 z-40 border-b bg-night/90 backdrop-blur transition-[border-color,box-shadow] duration-300 ${
+          compact ? "border-gold/25 shadow-[0_10px_30px_-18px_rgb(0_0_0/0.8)]" : "border-line"
+        }`}
+      >
+        <TopStrip hidden={compact} />
         <Container className="flex h-16 items-center justify-between gap-3 lg:h-[72px]">
           <Logo />
           <MegaNav />
@@ -44,7 +46,7 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="grid size-10 place-items-center rounded-full hover:bg-parchment/8"
+              className="grid size-10 place-items-center rounded-full transition-colors hover:bg-parchment/8"
               aria-label="Search"
             >
               <Search className="size-5" strokeWidth={1.5} aria-hidden />

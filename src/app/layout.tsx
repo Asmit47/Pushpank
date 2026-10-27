@@ -6,7 +6,9 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { MotionProvider } from "@/components/motion/motion-provider";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
+import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/data/site";
+import { orgGraph } from "@/lib/seo";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -37,13 +39,49 @@ export const metadata: Metadata = {
     template: "%s | Pushpank",
   },
   description: site.hero.copy,
+  applicationName: site.name,
+  keywords: [
+    "puja samagri Lucknow",
+    "fresh flowers delivery Lucknow",
+    "pandit booking Lucknow",
+    "puja kits online",
+    "puja decorations",
+    "Pushpank",
+  ],
+  authors: [{ name: site.name }],
+  creator: site.name,
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: "Pushpank",
+    locale: "en_IN",
+    title: "Pushpank | Fresh flowers, puja samagri and pandit booking in Lucknow",
     description: site.hero.copy,
-    images: [{ url: "/images/placeholder/hero.jpg", width: 768, height: 1024 }],
+    images: [
+      {
+        url: "/images/generated/hero-altar.jpg",
+        width: 1536,
+        height: 1024,
+        alt: "A brass diya and incense before a gold Om mandala",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pushpank | Fresh flowers, puja samagri and pandit booking in Lucknow",
+    description: site.hero.copy,
+    images: ["/images/generated/hero-altar.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
@@ -56,6 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${manrope.variable} ${cormorant.variable} ${tiro.variable}`}>
       <body className="flex min-h-dvh flex-col bg-night text-parchment">
+        <JsonLd data={orgGraph()} />
         <div className="grain" aria-hidden />
         <MotionProvider>
           <ScrollProgress />

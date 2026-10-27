@@ -35,7 +35,7 @@ export function ProductCard({ product, priority }: { product: Product; priority?
             sizes="(min-width: 1024px) 25vw, 50vw"
             priority={priority}
             wrapperClassName="absolute inset-0"
-            className="size-full object-cover transition duration-500 group-hover:opacity-0"
+            className="img-zoom size-full object-cover transition-opacity duration-500 group-hover:opacity-0"
           />
           {second && (
             <Media
@@ -44,37 +44,37 @@ export function ProductCard({ product, priority }: { product: Product; priority?
               width={640}
               height={800}
               sizes="(min-width: 1024px) 25vw, 50vw"
-              wrapperClassName="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
-              className="size-full object-cover"
+              wrapperClassName="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              className="img-zoom size-full object-cover"
             />
           )}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-night/50 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-night/70 to-transparent" />
           {product.badge && (
             <span className="absolute left-3 top-3">
               <Badge tone="gold">{product.badge}</Badge>
             </span>
           )}
         </div>
-        <div className="flex flex-1 flex-col gap-2 p-3.5 sm:p-4">
-          <h3 className="font-sans text-[0.98rem] font-medium leading-snug text-parchment">
+        <div className="flex flex-1 flex-col gap-2.5 p-4">
+          <h3 className="font-serif text-[1.15rem] leading-snug text-parchment">
             <Link href={`/products/${product.slug}`} className="after:absolute after:inset-0 after:content-['']">
               {product.name}
             </Link>
           </h3>
-          <div className="mt-auto space-y-3 pt-1">
-            <Price price={cheapest.price} salePrice={cheapest.salePrice} from={multiple} className="text-gold" />
-            <div className="relative z-10 flex gap-2">
-              {available && !multiple && firstAvailable ? (
-                <QuickAddButton productId={product.id} variantId={firstAvailable.id} productName={product.name} />
-              ) : (
-                <Button href={`/products/${product.slug}`} size="sm" variant="secondary" className="flex-1">
-                  {available ? "Choose options" : "View"}
-                </Button>
-              )}
-              <Button size="sm" variant="ghost" className="relative" onClick={() => setOpen(true)}>
-                Quick view
+          <div className="mt-auto flex items-end justify-between gap-2 pt-1">
+            <Price price={cheapest.price} salePrice={cheapest.salePrice} from={multiple} className="text-gold-soft" />
+          </div>
+          <div className="relative z-10 flex gap-2 border-t border-line/70 pt-3">
+            {available && !multiple && firstAvailable ? (
+              <QuickAddButton productId={product.id} variantId={firstAvailable.id} productName={product.name} />
+            ) : (
+              <Button href={`/products/${product.slug}`} size="sm" variant="secondary" className="flex-1">
+                {available ? "Choose options" : "View"}
               </Button>
-            </div>
+            )}
+            <Button size="sm" variant="ghost" className="relative" onClick={() => setOpen(true)}>
+              Quick view
+            </Button>
           </div>
         </div>
         {open && <QuickView product={product} onClose={() => setOpen(false)} />}
