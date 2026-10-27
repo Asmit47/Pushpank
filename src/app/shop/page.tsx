@@ -11,7 +11,6 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
   return (
     <ListingView
       title="All products"
-      description="Fresh flowers, puja essentials, kits and gifts for everyday worship and festivals."
       crumbs={[{ label: "Home", href: "/" }, { label: "Shop" }]}
       basePath="/shop"
       searchParams={await searchParams}

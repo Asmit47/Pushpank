@@ -1,16 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { Heart } from "lucide-react";
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Media } from "@/components/ui/media";
+import { QuantityStepper } from "@/components/ui/quantity-stepper";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { getFirstAvailableVariant, getVariantPrice, isProductAvailable } from "@/lib/catalog";
+import { formatPrice } from "@/lib/format";
+import { cn } from "@/lib/cn";
+import { useWishlist } from "@/lib/wishlist";
 import type { Product } from "@/types";
-import { Price } from "./price";
 import { QuickAddButton } from "./quick-add-button";
-import { QuickView } from "./quick-view";
 
 export function ProductCard({ product, priority }: { product: Product; priority?: boolean }) {
   const available = isProductAvailable(product);
@@ -21,17 +23,21 @@ export function ProductCard({ product, priority }: { product: Product; priority?
   const multiple = product.variants.length > 1;
   const image = product.images[0];
   const second = product.secondaryImage ?? product.images[1];
-  const [open, setOpen] = useState(false);
+  const [qty, setQty] = useState(1);
+  const { saved, toggle } = useWishlist(product.id);
+
+  const current = cheapest.salePrice ?? cheapest.price;
+  const onSale = cheapest.salePrice !== undefined && cheapest.salePrice < cheapest.price;
 
   return (
-    <SpotlightCard className="h-full">
+    <SpotlightCard className="h-full transition duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-lift">
       <article className="group relative flex h-full flex-col">
-        <div className="relative aspect-[4/5] overflow-hidden bg-night">
+        <div className="relative aspect-square overflow-hidden bg-night">
           <Media
             src={image.src}
             alt={image.alt}
             width={640}
-            height={800}
+            height={640}
             sizes="(min-width: 1024px) 25vw, 50vw"
             priority={priority}
             wrapperClassName="absolute inset-0"
@@ -42,42 +48,69 @@ export function ProductCard({ product, priority }: { product: Product; priority?
               src={second.src}
               alt=""
               width={640}
-              height={800}
+              height={640}
               sizes="(min-width: 1024px) 25vw, 50vw"
               wrapperClassName="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               className="img-zoom size-full object-cover"
             />
           )}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-night/70 to-transparent" />
+          {!available && (
+            <div className="absolute inset-0 grid place-items-center bg-night/60">
+              <span className="rounded-full border border-line bg-sanctum px-3.5 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-muted">
+                Out of stock
+              </span>
+            </div>
+          )}
           {product.badge && (
-            <span className="absolute left-3 top-3">
-              <Badge tone="gold">{product.badge}</Badge>
+            <span className="absolute left-3 top-3 rounded-full bg-night/85 px-2.5 py-1 text-xs font-medium text-gold-soft backdrop-blur-sm">
+              {product.badge}
             </span>
           )}
+          <button
+            type="button"
+            onClick={toggle}
+            aria-pressed={saved}
+            aria-label={saved ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
+            className="absolute right-3 top-3 z-10 grid size-9 place-items-center rounded-full bg-parchment text-night shadow-sm transition-transform duration-200 hover:scale-105 active:scale-95"
+          >
+            <Heart className={cn("size-4 transition-colors", saved && "fill-sindoor text-sindoor")} strokeWidth={1.75} aria-hidden />
+          </button>
         </div>
-        <div className="flex flex-1 flex-col gap-2.5 p-4">
-          <h3 className="font-serif text-[1.15rem] leading-snug text-parchment">
+
+        <div className="flex flex-1 flex-col p-4 sm:p-5">
+          <h3 className="font-serif text-xl leading-snug text-parchment">
             <Link href={`/products/${product.slug}`} className="after:absolute after:inset-0 after:content-['']">
               {product.name}
             </Link>
           </h3>
-          <div className="mt-auto flex items-end justify-between gap-2 pt-1">
-            <Price price={cheapest.price} salePrice={cheapest.salePrice} from={multiple} className="text-gold-soft" />
-          </div>
-          <div className="relative z-10 flex gap-2 border-t border-line/70 pt-3">
+
+          <p className="mt-1.5 text-lg font-semibold tabular-nums text-gold-soft">
+            {multiple && <span className="mr-1.5 align-middle text-xs font-normal text-muted">From</span>}
+            {formatPrice(current)}
+            {onSale && <s className="ml-2 text-sm font-normal text-muted">{formatPrice(cheapest.price)}</s>}
+          </p>
+
+          <div className="relative z-10 mt-auto flex flex-col gap-2.5 pt-4">
+            {available && !multiple && firstAvailable && (
+              <div className="hidden sm:flex">
+                <QuantityStepper size="sm" value={qty} onChange={setQty} label={`Quantity for ${product.name}`} />
+              </div>
+            )}
             {available && !multiple && firstAvailable ? (
-              <QuickAddButton productId={product.id} variantId={firstAvailable.id} productName={product.name} />
+              <QuickAddButton
+                productId={product.id}
+                variantId={firstAvailable.id}
+                productName={product.name}
+                quantity={qty}
+                className="w-full sm:h-11"
+              />
             ) : (
-              <Button href={`/products/${product.slug}`} size="sm" variant="secondary" className="flex-1">
-                {available ? "Choose options" : "View"}
+              <Button href={`/products/${product.slug}`} size="md" variant="secondary" className="w-full">
+                {available ? "Choose options" : "View details"}
               </Button>
             )}
-            <Button size="sm" variant="ghost" className="relative" onClick={() => setOpen(true)}>
-              Quick view
-            </Button>
           </div>
         </div>
-        {open && <QuickView product={product} onClose={() => setOpen(false)} />}
       </article>
     </SpotlightCard>
   );
