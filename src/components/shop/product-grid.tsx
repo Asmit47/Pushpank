@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SearchX } from "lucide-react";
+import { ArrowRight, SearchX } from "lucide-react";
 import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -28,10 +28,30 @@ export function ProductGrid({ products, clearHref }: { products: Product[]; clea
         {products.map((p, i) => (
           <li key={p.id} className="contents">
             {i > 0 && i % 8 === 0 && (
-              <div className="col-span-2 flex min-h-36 items-end rounded-[20px] bg-maroon-900 p-6 lg:col-span-3">
-                <Link href="/collections/festival-collections" className="font-serif text-3xl text-gold-soft">
-                  Build your Diwali thali
-                </Link>
+              <div className="col-span-full relative overflow-hidden rounded-[20px] border border-gold/25 bg-maroon-900">
+                <div className="motif-dots absolute inset-0 opacity-30" aria-hidden />
+                <div className="relative flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+                  <div className="max-w-xl">
+                    <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-gold">Festival edit</p>
+                    <Link
+                      href="/collections/festival-collections"
+                      className="mt-2 block font-serif text-2xl leading-tight text-gold-soft transition-colors hover:text-gold sm:text-3xl"
+                    >
+                      Build your Diwali thali
+                    </Link>
+                    <p className="mt-1.5 text-sm text-muted">
+                      Thalis, diyas and fresh garlands — pick a ready set or compose your own.
+                    </p>
+                  </div>
+                  <Link
+                    href="/collections/festival-collections"
+                    tabIndex={-1}
+                    className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-gold/45 px-5 py-2.5 text-sm font-medium text-gold-soft transition-colors hover:border-gold hover:bg-gold/10 sm:self-auto"
+                  >
+                    Explore
+                    <ArrowRight className="size-4" aria-hidden />
+                  </Link>
+                </div>
               </div>
             )}
             <StaggerItem className="h-full">

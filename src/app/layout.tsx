@@ -5,7 +5,6 @@ import { FloatingActions } from "@/components/layout/floating-actions";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { MotionProvider } from "@/components/motion/motion-provider";
-import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/data/site";
 import { orgGraph } from "@/lib/seo";
@@ -97,7 +96,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd data={orgGraph()} />
         <div className="grain" aria-hidden />
         <MotionProvider>
-          <ScrollProgress />
           <CartHydrator />
           <a
             href="#main"
