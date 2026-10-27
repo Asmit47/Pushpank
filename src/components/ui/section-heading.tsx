@@ -5,6 +5,7 @@ export function SectionHeading({
   id,
   eyebrow,
   title,
+  hindi,
   description,
   action,
   align = "left",
@@ -14,6 +15,8 @@ export function SectionHeading({
   id?: string;
   eyebrow?: string;
   title: string;
+  /** Hindi accent word set beside the title. */
+  hindi?: string;
   description?: string;
   action?: ReactNode;
   align?: "left" | "center";
@@ -23,7 +26,7 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "flex flex-col gap-4",
+        "flex flex-col gap-5",
         align === "center"
           ? "items-center text-center"
           : "sm:flex-row sm:items-end sm:justify-between",
@@ -31,16 +34,22 @@ export function SectionHeading({
       )}
     >
       <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
-        {eyebrow && (
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
-            {eyebrow}
-          </p>
-        )}
-        <Tag id={id} className="text-3xl font-semibold leading-[1.1] text-gold-soft sm:text-4xl">
+        {eyebrow && <p className={cn("eyebrow", align === "center" && "eyebrow-center")}>{eyebrow}</p>}
+        <Tag id={id} className="display-section mt-3 text-gold-soft">
           {title}
+          {hindi && (
+            <>
+              {" "}
+              <span lang="hi" className="mantra text-gold/70">
+                {hindi}
+              </span>
+            </>
+          )}
         </Tag>
         {description && (
-          <p className="mt-3 text-base leading-relaxed text-muted">{description}</p>
+          <p className={cn("mt-4 text-[0.95rem] leading-relaxed text-muted", align === "center" && "mx-auto max-w-xl")}>
+            {description}
+          </p>
         )}
       </div>
       {action}

@@ -9,14 +9,21 @@ const forPandits = [
   { label: "Application status", href: "/account" },
 ];
 
+const help = [
+  { label: "FAQs", href: "/faq" },
+  { label: "Track order", href: "/track" },
+  { label: "Contact", href: "/contact" },
+  { label: "Reviews", href: "/reviews" },
+];
+
 function Column({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <h2 className="font-sans text-sm font-semibold text-gold">{title}</h2>
-      <ul className="mt-4 space-y-2.5 text-[0.95rem]">
+      <h2 className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-gold">{title}</h2>
+      <ul className="mt-5 space-y-2.5 text-[0.9rem]">
         {links.map((l) => (
           <li key={l.href + l.label}>
-            <Link href={l.href} className="text-parchment/75 hover:text-gold-soft hover:underline">
+            <Link href={l.href} className="text-parchment/70 transition-colors hover:text-gold-soft">
               {l.label}
             </Link>
           </li>
@@ -28,38 +35,44 @@ function Column({ title, links }: { title: string; links: { label: string; href:
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-line bg-maroon-900 pb-24 text-parchment lg:pb-0">
-      <Container className="py-14">
+    <footer className="relative mt-16 overflow-hidden border-t border-gold/20 bg-maroon-900/70 pb-24 text-parchment lg:pb-0">
+      <p aria-hidden lang="hi" className="mantra pointer-events-none absolute -right-6 bottom-0 select-none text-[10rem] leading-none text-gold/[0.05]">
+        पुष्पांक
+      </p>
+      <Container className="relative py-14 lg:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-6">
           <div className="max-w-xs lg:col-span-2">
             <Logo />
-            <p className="mt-4 text-sm leading-relaxed text-parchment/70">{site.tagline}.</p>
-            <address className="mt-5 space-y-1 text-sm not-italic text-parchment/80">
+            <p className="mt-5 text-sm leading-relaxed text-parchment/70">{site.tagline}.</p>
+            <address className="mt-6 space-y-2 text-sm not-italic text-parchment/80">
               <p>{site.contact.address}</p>
               <p>
-                <a href={`tel:${site.contact.phone.replace(/\s/g, "")}`} className="hover:underline">
+                <a href={`tel:${site.contact.phone.replace(/\s/g, "")}`} className="underline-offset-4 transition-colors hover:text-gold-soft hover:underline">
                   {site.contact.phone}
                 </a>
               </p>
               <p>
-                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="underline-offset-4 transition-colors hover:text-gold-soft hover:underline">
                   WhatsApp support
                 </a>
               </p>
-              <p>{site.contact.hours}</p>
+              <p className="text-parchment/60">{site.contact.hours}</p>
             </address>
           </div>
-          <Column title="Shop" links={mainNav.shop} />
-          <Column title="Puja" links={mainNav.puja} />
-          <Column title="More" links={[...mainNav.more, ...mainNav.decorations]} />
-          <Column title="For Pandits" links={forPandits} />
+          <Column title="Shop" links={mainNav.shop.slice(1)} />
+          <Column title="Puja" links={mainNav.puja.slice(0, 3)} />
+          <Column title="Celebrations" links={mainNav.decorations} />
+          <div className="space-y-8">
+            <Column title="Help" links={help} />
+            <Column title="For Pandits" links={forPandits} />
+          </div>
         </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-gold/15 pt-6 text-sm text-parchment/60 md:flex-row md:items-center md:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-gold/15 pt-6 text-[0.8rem] text-parchment/55 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Pushpank. All rights reserved.</p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            <li><Link href="/shipping-returns" className="hover:text-gold-soft">Delivery and refunds</Link></li>
-            <li><Link href="/privacy" className="hover:text-gold-soft">Privacy</Link></li>
-            <li><Link href="/terms" className="hover:text-gold-soft">Terms</Link></li>
+            <li><Link href="/shipping-returns" className="transition-colors hover:text-gold-soft">Delivery and refunds</Link></li>
+            <li><Link href="/privacy" className="transition-colors hover:text-gold-soft">Privacy</Link></li>
+            <li><Link href="/terms" className="transition-colors hover:text-gold-soft">Terms</Link></li>
           </ul>
         </div>
       </Container>

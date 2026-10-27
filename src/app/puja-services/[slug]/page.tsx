@@ -9,8 +9,10 @@ import { Container } from "@/components/ui/container";
 import { FaqList } from "@/components/ui/faq-list";
 import { Media } from "@/components/ui/media";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { JsonLd } from "@/components/seo/json-ld";
 import { whatsappLink } from "@/data/site";
 import { getService, getServices } from "@/lib/catalog";
+import { serviceSchema } from "@/lib/seo";
 import { formatPrice } from "@/lib/format";
 
 export function generateStaticParams() {
@@ -47,9 +49,19 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();
+  const indicativePrices = service.packages.map((p) => p.indicativePrice).filter((p): p is number => p !== undefined);
 
   return (
     <Container className="py-8 lg:py-12">
+      <JsonLd
+        data={serviceSchema({
+          name: service.name,
+          description: service.tagline,
+          slug,
+          image: service.image.src,
+          fromPrice: indicativePrices.length ? Math.min(...indicativePrices) : undefined,
+        })}
+      />
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },

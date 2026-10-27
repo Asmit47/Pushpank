@@ -12,17 +12,18 @@ export function MantraWatermark({ text = "ॐ नमः शिवाय" }: { te
   );
 }
 
+/** The one marquee on the site: a quiet thread of mantras between sections. */
 export function MantraMarquee() {
   const row = [...lines, ...lines];
   return (
-    <div className="overflow-hidden border-y border-gold/20 bg-maroon-900 py-3" aria-hidden>
-      <div className="animate-marquee flex w-max gap-10">
+    <div className="group/marquee overflow-hidden border-y border-gold/15 bg-maroon-900/70 py-3.5" aria-hidden>
+      <div className="animate-marquee flex w-max gap-12 group-hover/marquee:[animation-play-state:paused]">
         {[0, 1].map((copy) => (
-          <p key={copy} lang="hi" className="mantra flex gap-10 text-lg text-gold-soft/80">
+          <p key={copy} lang="hi" className="mantra flex gap-12 text-base tracking-wide text-gold-soft/70">
             {row.map((line, i) => (
-              <span key={`${copy}-${i}`} className="flex items-center gap-10">
+              <span key={`${copy}-${i}`} className="flex items-center gap-12">
                 {line}
-                <span className="inline-block size-1.5 rounded-full bg-gold" />
+                <span className="inline-block size-1 rounded-full bg-gold/70" />
               </span>
             ))}
           </p>
