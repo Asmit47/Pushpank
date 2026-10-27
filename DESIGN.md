@@ -4,7 +4,7 @@ Reading this as: a premium devotional store and service site for Lucknow househo
 
 Dials: layout variety 7, motion 7, density 4.
 
-The serif is justified because the brand is heritage and editorial (temple, mantra, manuscript), not a generic luxury default. Cormorant Garamond is the display face. Manrope is the UI face. Tiro Devanagari Sanskrit is used only for Hindi.
+The serif is justified because the brand is heritage and editorial (temple, mantra, manuscript), not a generic luxury default. Cormorant Garamond is the display face. Raleway is the UI face. Tiro Devanagari Sanskrit is used only for Hindi.
 
 ## Palette
 
@@ -35,7 +35,7 @@ Type is fluid (clamp based) through two utility classes:
 
 - `.display-hero`: clamp 2.6rem to 4.6rem, leading 1.04. Hero h1 and page-level statements only.
 - `.display-section`: clamp 1.85rem to 2.6rem, leading 1.1. Every section heading and page h1. Applied by `SectionHeading` and `ContentPage`.
-- Body: Manrope 1rem, leading 1.7 globally set on `body`, max 65ch where prose.
+- Body: Raleway 1rem, leading 1.7 globally set on `body` (lining numerals forced via `lnum`), max 65ch where prose.
 - Hindi: Tiro Devanagari Sanskrit, via `.mantra`, for watermark, marquee, and one-word labels.
 - `.eyebrow`: the one uppercase tracking label, with a gold hairline before it (`.eyebrow-center` adds one after). At most one eyebrow per section.
 

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope, Tiro_Devanagari_Sanskrit } from "next/font/google";
+import { EB_Garamond, Raleway, Tiro_Devanagari_Sanskrit } from "next/font/google";
 import { CartHydrator } from "@/components/cart/cart-hydrator";
 import { FloatingActions } from "@/components/layout/floating-actions";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -10,14 +10,14 @@ import { site } from "@/data/site";
 import { orgGraph } from "@/lib/seo";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const raleway = Raleway({
+  variable: "--font-raleway",
   subsets: ["latin"],
   display: "swap",
 });
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
@@ -91,11 +91,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${manrope.variable} ${cormorant.variable} ${tiro.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${raleway.variable} ${ebGaramond.variable} ${tiro.variable}`}>
       <body className="flex min-h-dvh flex-col bg-night text-parchment">
         <JsonLd data={orgGraph()} />
         <div className="grain" aria-hidden />
         <MotionProvider>
+
           <CartHydrator />
           <a
             href="#main"
