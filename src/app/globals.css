@@ -26,8 +26,8 @@
   --color-forest-100: #1a2c24;
   --color-charcoal: #160c0e;
 
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-sans: var(--font-raleway), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-eb-garamond), ui-serif, Georgia, serif;
   --font-devanagari: var(--font-tiro), "Tiro Devanagari Sanskrit", serif;
 
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.35), 0 12px 32px -16px rgb(0 0 0 / 0.55);
@@ -47,51 +47,64 @@
       transform: translate3d(0, 26px, 0) scale(0.75);
       opacity: 0;
     }
+
     30% {
       opacity: 0.55;
     }
+
     70% {
       opacity: 0.3;
     }
+
     100% {
       transform: translate3d(-16px, -72px, 0) scale(1.4);
       opacity: 0;
     }
   }
+
   @keyframes drift {
     from {
       transform: translate3d(0, -6px, 0) rotate(-9deg);
     }
+
     to {
       transform: translate3d(10px, 12px, 0) rotate(15deg);
     }
   }
 
   @keyframes glow {
+
     0%,
     100% {
       opacity: 0.45;
     }
+
     50% {
       opacity: 0.85;
     }
   }
+
   @keyframes flicker {
+
     0%,
     100% {
       opacity: 0.55;
     }
+
     40% {
       opacity: 1;
     }
+
     60% {
       opacity: 0.7;
     }
   }
+
   @keyframes marquee {
     from {
       transform: translateX(0);
     }
+
     to {
       transform: translateX(-50%);
     }
@@ -120,7 +133,10 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif);
   font-weight: 500;
   letter-spacing: -0.015em;
@@ -235,6 +251,7 @@ p {
   mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
 }
+
 .rail::-webkit-scrollbar {
   display: none;
 }
@@ -243,6 +260,7 @@ p {
 .img-zoom {
   transition: transform 0.8s var(--ease-out-soft), opacity 0.5s ease;
 }
+
 .group:hover .img-zoom {
   transform: scale(1.05);
 }
@@ -250,6 +268,7 @@ p {
 .hide-scrollbar {
   scrollbar-width: none;
 }
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -258,6 +277,7 @@ p {
   html {
     scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {
