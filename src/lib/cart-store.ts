@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { getProductById, getVariantPrice } from "@/lib/catalog";
+import { findProductById, getVariantPrice } from "@/lib/catalog";
 import { computeTotals } from "@/lib/pricing";
 import type { Product, Variant } from "@/types";
 
@@ -85,10 +85,10 @@ export type ResolvedLine = {
   available: boolean;
 };
 
-export function resolveLines(items: CartItem[]): ResolvedLine[] {
+export function resolveLines(items: CartItem[], products: Product[]): ResolvedLine[] {
   const lines: ResolvedLine[] = [];
   for (const item of items) {
-    const product = getProductById(item.productId);
+    const product = findProductById(products, item.productId);
     const variant = product?.variants.find((v) => v.id === item.variantId);
     if (!product || !variant) continue;
     const unitPrice = getVariantPrice(variant);

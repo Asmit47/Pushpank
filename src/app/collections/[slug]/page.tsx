@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ListingView } from "@/components/shop/listing-view";
-import { getCategories, getCategory } from "@/lib/catalog";
+import { getCategories, getCategory } from "@/lib/catalog-server";
 
-export function generateStaticParams() {
-  return getCategories().map((c) => ({ slug: c.slug }));
+export async function generateStaticParams() {
+  return (await getCategories()).map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/collections/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const category = await getCategory(slug);
   if (!category) return { title: "Collection not found" };
   return {
     title: category.name,
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<"/collections/[slug
 
 export default async function CollectionPage({ params, searchParams }: PageProps<"/collections/[slug]">) {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const category = await getCategory(slug);
   if (!category) notFound();
 
   return (

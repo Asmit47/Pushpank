@@ -8,10 +8,11 @@ import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { occasions } from "@/data/occasions";
 import { pandits } from "@/data/pandits";
-import { getAllProducts } from "@/lib/catalog";
+import { loadStorefrontContent } from "@/lib/storefront";
 
-export function BestsellersRail() {
-  const items = getAllProducts().filter((p) => p.badge === "Bestseller").slice(0, 8);
+export async function BestsellersRail() {
+  const { products } = await loadStorefrontContent();
+  const items = products.filter((p) => p.badge === "Bestseller").slice(0, 8);
   return (
     <section aria-labelledby="bestsellers" className="py-16 lg:py-20">
       <Container>

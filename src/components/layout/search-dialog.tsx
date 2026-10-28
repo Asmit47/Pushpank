@@ -6,6 +6,7 @@ import { Clock, Search } from "lucide-react";
 import { Fragment, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Sheet } from "@/components/ui/sheet";
 import { buildSearchIndex, type SearchEntry } from "@/lib/catalog";
+import { useCatalog } from "@/lib/catalog-context";
 import { formatPrice } from "@/lib/format";
 import { queryTokens, rankSearch } from "@/lib/search";
 import { useUi } from "@/lib/ui-store";
@@ -122,7 +123,8 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
   // the list refreshes on the next open (panel remounts).
   const [recents] = useState<string[]>(() => readRecents());
   const [announce, setAnnounce] = useState("");
-  const index = useMemo(() => buildSearchIndex(), []);
+  const { products, categories } = useCatalog();
+  const index = useMemo(() => buildSearchIndex(products, categories), [products, categories]);
 
   const q = query.trim();
   const qLower = q.toLowerCase();

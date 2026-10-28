@@ -3,9 +3,10 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { categories } from "@/data/categories";
+import { loadStorefrontContent } from "@/lib/storefront";
 
-export function CategoryGrid() {
+export async function CategoryGrid() {
+  const { categories } = await loadStorefrontContent();
   return (
     <section aria-labelledby="categories" className="py-16 lg:py-20">
       <Container>

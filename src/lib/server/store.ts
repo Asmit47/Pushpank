@@ -2,25 +2,22 @@ import "server-only";
 import { randomBytes } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { Booking, Order, PanditApplication, QuoteRequest } from "@/types";
+import type { Booking, QuoteRequest } from "@/types";
 
 /**
- * STUB PERSISTENCE (file-based). Records live in data/db.json, written
- * atomically (temp file + rename) through a serialized in-process queue, so
- * submissions survive a restart. Swap this module for a real database later
- * without changing callers. Everything here is server-only.
+ * File store for puja bookings and decoration quotes. Orders and pandit
+ * registrations are written to Google Sheets instead. Records live in
+ * data/db.json, written atomically (temp file + rename).
  */
 type DbFile = {
-  orders: Record<string, Order>;
   bookings: Record<string, Booking>;
   quotes: Record<string, QuoteRequest>;
-  panditApplications: Record<string, PanditApplication>;
 };
 
 const DB_DIR = join(process.cwd(), "data");
 const DB_PATH = join(DB_DIR, "db.json");
 
-const EMPTY: DbFile = { orders: {}, bookings: {}, quotes: {}, panditApplications: {} };
+const EMPTY: DbFile = { bookings: {}, quotes: {} };
 
 /** Warm in-process copy of the last-read file; readers hit this, not the disk. */
 let cache: DbFile | null = null;
@@ -72,19 +69,6 @@ export function newReference() {
   return `PP-${out}`;
 }
 
-export function saveOrder(order: Order) {
-  return enqueue(async () => {
-    const db = await readDb();
-    db.orders[order.reference] = order;
-    await writeDb(db);
-    return order;
-  });
-}
-
-export async function getOrder(reference: string) {
-  return (await readDb()).orders[reference];
-}
-
 export function saveBooking(booking: Booking) {
   return enqueue(async () => {
     const db = await readDb();
@@ -109,17 +93,4 @@ export function saveQuote(quote: QuoteRequest) {
 
 export async function getQuote(reference: string) {
   return (await readDb()).quotes[reference];
-}
-
-export function savePanditApplication(application: PanditApplication) {
-  return enqueue(async () => {
-    const db = await readDb();
-    db.panditApplications[application.reference] = application;
-    await writeDb(db);
-    return application;
-  });
-}
-
-export async function getPanditApplication(reference: string) {
-  return (await readDb()).panditApplications[reference];
 }

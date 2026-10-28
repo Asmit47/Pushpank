@@ -10,22 +10,16 @@ import { ProductGallery } from "@/components/shop/product-gallery";
 import { ProductPurchase } from "@/components/shop/product-purchase";
 import { Reveal } from "@/components/motion/reveal";
 import { site } from "@/data/site";
-import {
-  getAllProducts,
-  getPrimaryCategory,
-  getProduct,
-  getRelatedProducts,
-  getVariantPrice,
-  isProductAvailable,
-} from "@/lib/catalog";
+import { getVariantPrice, isProductAvailable } from "@/lib/catalog";
+import { getAllProducts, getPrimaryCategory, getProduct, getRelatedProducts } from "@/lib/catalog-server";
 
-export function generateStaticParams() {
-  return getAllProducts().map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  return (await getAllProducts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/products/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getProduct(slug);
   if (!product) return { title: "Product not found" };
   return {
     title: product.name,
@@ -37,11 +31,11 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
 
 export default async function ProductPage({ params }: PageProps<"/products/[slug]">) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getProduct(slug);
   if (!product) notFound();
 
-  const category = getPrimaryCategory(product);
-  const related = getRelatedProducts(product);
+  const category = await getPrimaryCategory(product);
+  const related = await getRelatedProducts(product);
   const prices = product.variants.map(getVariantPrice);
 
   const jsonLd = {

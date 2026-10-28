@@ -9,7 +9,7 @@ import { Media } from "@/components/ui/media";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { whatsappLink } from "@/data/site";
 import { formatDate, formatPrice } from "@/lib/format";
-import { getOrder } from "@/lib/server/store";
+import { getSheetOrder } from "@/lib/server/sheets";
 
 // Records are looked up per request; never cache a confirmation page.
 export const dynamic = "force-dynamic";
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default async function OrderConfirmationPage({ params }: PageProps<"/order-confirmation/[id]">) {
   const { id } = await params;
-  const order = await getOrder(id);
+  const order = await getSheetOrder(id);
 
   if (!order) {
     return (

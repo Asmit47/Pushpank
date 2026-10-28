@@ -6,18 +6,20 @@ import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { ProductCard } from "@/components/shop/product-card";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { getProductById } from "@/lib/catalog";
+import { findProductById } from "@/lib/catalog";
+import { useCatalog } from "@/lib/catalog-context";
 import { useWishlistList } from "@/lib/wishlist";
 
 export function WishlistView() {
   const ids = useWishlistList();
+  const { products: catalogue } = useCatalog();
   const products = useMemo(
     () =>
       ids.flatMap((id) => {
-        const product = getProductById(id);
+        const product = findProductById(catalogue, id);
         return product ? [product] : [];
       }),
-    [ids],
+    [ids, catalogue],
   );
 
   if (products.length === 0) {

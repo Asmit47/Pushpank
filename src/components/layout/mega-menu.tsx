@@ -8,6 +8,7 @@ import { occasions } from "@/data/occasions";
 import { pandits } from "@/data/pandits";
 import { mainNav } from "@/data/site";
 import { getFeaturedProducts } from "@/lib/catalog";
+import { useCatalog } from "@/lib/catalog-context";
 import { cn } from "@/lib/cn";
 
 type Item = { label: string; href: string; image?: string };
@@ -22,16 +23,17 @@ const groups: { id: string; label: string; href: string; match: string[]; items:
 const HOVER_OPEN_MS = 110;
 const HOVER_CLOSE_MS = 180;
 
-// Static per load. The day index is 0 during SSR/hydration (so server and
-// client agree) and picks a different featured product on the client after mount.
-const FEATURED = getFeaturedProducts(8);
+// The day index is 0 during SSR/hydration (so server and client agree) and
+// picks a different featured product on the client after mount.
 const subscribeDay = () => () => {};
 
 export function MegaNav() {
   const pathname = usePathname();
+  const { products } = useCatalog();
+  const featuredList = getFeaturedProducts(products, 8);
   const [open, setOpen] = useState<string | null>(null);
   const day = useSyncExternalStore(subscribeDay, () => Math.floor(Date.now() / 86_400_000), () => 0);
-  const featured = FEATURED.length > 0 ? FEATURED[day % FEATURED.length] : undefined;
+  const featured = featuredList.length > 0 ? featuredList[day % featuredList.length] : undefined;
   const openTimer = useRef<number | null>(null);
   const closeTimer = useRef<number | null>(null);
 

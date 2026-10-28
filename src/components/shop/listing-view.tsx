@@ -4,7 +4,8 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import type { Crumb } from "@/components/ui/breadcrumbs";
 import { Truck } from "lucide-react";
 import { occasions } from "@/data/occasions";
-import { getCategories, parseSort, queryProducts } from "@/lib/catalog";
+import { parseSort, queryProducts } from "@/lib/catalog";
+import { loadStorefrontContent } from "@/lib/storefront";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { ProductFilters } from "./product-filters";
@@ -14,7 +15,7 @@ import { ShopSearchInput } from "./shop-search-input";
 type RawParams = Record<string, string | string[] | undefined>;
 const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
 
-export function ListingView({
+export async function ListingView({
   title,
   crumbs,
   collection,
@@ -27,9 +28,10 @@ export function ListingView({
   basePath: string;
   searchParams: RawParams;
 }) {
+  const { products: catalogue, categories } = await loadStorefrontContent();
   const occasion = first(searchParams.occasion);
   const q = first(searchParams.q) ?? "";
-  const products = queryProducts({
+  const products = queryProducts(catalogue, {
     collection,
     sort: parseSort(first(searchParams.sort)),
     price: first(searchParams.price),
@@ -37,7 +39,7 @@ export function ListingView({
     q: q || undefined,
     occasion,
   });
-  const total = queryProducts({ collection }).length;
+  const total = queryProducts(catalogue, { collection }).length;
 
   return (
     <div>
@@ -62,7 +64,7 @@ export function ListingView({
       <Container className="py-4 lg:py-5">
         {/* One rail: collections and occasions, all filters-in-place links. */}
         <nav aria-label="Browse collections and occasions" className="hide-scrollbar -mx-4 flex items-center gap-2 overflow-x-auto px-4 lg:px-0">
-          {[{ slug: undefined, name: "All products", href: basePath }, ...getCategories().map((c) => ({ slug: c.slug, name: c.name, href: `/collections/${c.slug}` }))].map((c) => {
+          {[{ slug: undefined, name: "All products", href: basePath }, ...categories.map((c) => ({ slug: c.slug, name: c.name, href: `/collections/${c.slug}` }))].map((c) => {
             const active = c.slug === collection;
             return (
               <Link

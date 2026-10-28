@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
 import { resolveLines, summarize, useCart, useCartHydrated } from "@/lib/cart-store";
+import { useCatalog } from "@/lib/catalog-context";
 import { CartLine } from "./cart-line";
 import { CartSummary } from "./cart-summary";
 
@@ -14,7 +15,8 @@ export function CartDrawer() {
   const close = useCart((s) => s.closeDrawer);
   const items = useCart((s) => s.items);
   const hydrated = useCartHydrated();
-  const lines = useMemo(() => resolveLines(items), [items]);
+  const { products } = useCatalog();
+  const lines = useMemo(() => resolveLines(items, products), [items, products]);
   const totals = summarize(lines);
   const hasUnavailable = lines.some((l) => !l.available);
 

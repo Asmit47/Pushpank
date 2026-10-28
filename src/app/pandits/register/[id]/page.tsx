@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
-import { getPanditApplication } from "@/lib/server/store";
+import { getSheetPanditApplication } from "@/lib/server/sheets";
 
 export const metadata: Metadata = { title: "Application received", robots: { index: false } };
 
@@ -14,7 +14,7 @@ const copy: Record<string, string> = {
 
 export default async function ApplicationStatus({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const application = await getPanditApplication(id);
+  const application = await getSheetPanditApplication(id);
   if (!application) notFound();
 
   return (

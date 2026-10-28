@@ -1,11 +1,14 @@
 "use server";
 
-import { getProductById, getVariantPrice } from "@/lib/catalog";
+import { findProductById, getVariantPrice } from "@/lib/catalog";
+import { getAllProducts } from "@/lib/catalog-server";
 import { normalizePhone } from "@/lib/phone";
 import { computeTotals, isServiceablePincode } from "@/lib/pricing";
 import { placeOrderSchema } from "@/lib/schemas";
+import { notifyOrder } from "@/lib/server/notify";
 import { rateLimit } from "@/lib/server/rate-limit";
-import { newReference, saveOrder } from "@/lib/server/store";
+import { appendOrder, sheetsConfigured } from "@/lib/server/sheets";
+import { newReference } from "@/lib/server/store";
 import type { Order, OrderLineSnapshot } from "@/types";
 import { fieldErrorsFrom, GENERIC_FAILURE, RATE_LIMITED } from "./shared";
 import type { ActionResult } from "./shared";
@@ -36,6 +39,7 @@ export async function placeOrder(input: unknown): Promise<ActionResult> {
       };
     }
 
+    const catalogue = await getAllProducts();
     const items: OrderLineSnapshot[] = [];
     const merged = new Map<string, number>();
     for (const i of data.items) {
@@ -44,7 +48,7 @@ export async function placeOrder(input: unknown): Promise<ActionResult> {
     }
     for (const [key, quantity] of merged) {
       const [productId, variantId] = key.split(":");
-      const product = getProductById(productId);
+      const product = findProductById(catalogue, productId);
       const variant = product?.variants.find((v) => v.id === variantId);
       if (!product || !variant) {
         return { ok: false, message: "An item in your cart is no longer available. Please review your cart." };
@@ -82,7 +86,12 @@ export async function placeOrder(input: unknown): Promise<ActionResult> {
       paymentStatus: "pending",
       createdAt: new Date().toISOString(),
     };
-    await saveOrder(order);
+    if (!sheetsConfigured()) {
+      console.error("Google Sheets is not configured.");
+      return GENERIC_FAILURE;
+    }
+    await appendOrder(order);
+    await notifyOrder(order);
     return { ok: true, data: { reference: order.reference } };
   } catch (error) {
     console.error("placeOrder failed", error);

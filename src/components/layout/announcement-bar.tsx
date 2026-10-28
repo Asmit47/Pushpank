@@ -4,7 +4,8 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { Phone, X } from "lucide-react";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { announcements, site } from "@/data/site";
+import { site } from "@/data/site";
+import { useCatalog } from "@/lib/catalog-context";
 import { PincodeCheck } from "./pincode-check";
 
 const KEY = "pushpank-announce-dismissed-until";
@@ -32,15 +33,18 @@ export function TopStrip({ hidden }: { hidden?: boolean }) {
     isDismissed,
     () => false,
   );
+  const { announcements } = useCatalog();
+  const lines = announcements.length ? announcements : [{ message: "Same-day flower delivery across Lucknow" }];
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const collapsed = dismissed || hidden;
+  const line = lines[index % lines.length];
 
   useEffect(() => {
-    if (collapsed || paused) return;
-    const id = window.setInterval(() => setIndex((i) => (i + 1) % announcements.length), 5000);
+    if (collapsed || paused || lines.length < 2) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % lines.length), 5000);
     return () => window.clearInterval(id);
-  }, [collapsed, paused]);
+  }, [collapsed, paused, lines.length]);
 
   return (
     <div className="hidden lg:block">
@@ -62,7 +66,7 @@ export function TopStrip({ hidden }: { hidden?: boolean }) {
           <div aria-live="polite" className="relative min-h-9 flex-1 overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
               <motion.p
-                key={index}
+                key={`${line.message}-${index}`}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -70,7 +74,13 @@ export function TopStrip({ hidden }: { hidden?: boolean }) {
                 className="flex items-center gap-2 py-2 text-gold-soft/90"
               >
                 <span aria-hidden className="size-1 rounded-full bg-gold" />
-                {announcements[index]}
+                {line.href ? (
+                  <Link href={line.href} className="hover:text-gold">
+                    {line.message}
+                  </Link>
+                ) : (
+                  line.message
+                )}
               </motion.p>
             </AnimatePresence>
           </div>

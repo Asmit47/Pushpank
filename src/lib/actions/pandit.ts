@@ -3,7 +3,9 @@
 import { normalizePhone } from "@/lib/phone";
 import { panditApplicationSchema } from "@/lib/schemas";
 import { rateLimit } from "@/lib/server/rate-limit";
-import { newReference, savePanditApplication } from "@/lib/server/store";
+import { notifyPanditApplication } from "@/lib/server/notify";
+import { appendPanditApplication, sheetsConfigured } from "@/lib/server/sheets";
+import { newReference } from "@/lib/server/store";
 import type { PanditApplication } from "@/types";
 import { fieldErrorsFrom, GENERIC_FAILURE, RATE_LIMITED } from "./shared";
 import type { ActionResult } from "./shared";
@@ -39,7 +41,12 @@ export async function submitPanditApplication(input: unknown): Promise<ActionRes
       status: "received",
       createdAt: new Date().toISOString(),
     };
-    await savePanditApplication(application);
+    if (!sheetsConfigured()) {
+      console.error("Google Sheets is not configured.");
+      return GENERIC_FAILURE;
+    }
+    await appendPanditApplication(application);
+    await notifyPanditApplication(application);
     return { ok: true, data: { reference: application.reference } };
   } catch (error) {
     console.error("submitPanditApplication failed", error);

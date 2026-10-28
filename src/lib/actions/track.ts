@@ -3,7 +3,8 @@
 import { normalizePhone } from "@/lib/phone";
 import { trackSchema } from "@/lib/schemas";
 import { rateLimit } from "@/lib/server/rate-limit";
-import { getBooking, getOrder, getPanditApplication } from "@/lib/server/store";
+import { getSheetOrder, getSheetPanditApplication } from "@/lib/server/sheets";
+import { getBooking } from "@/lib/server/store";
 import { fieldErrorsFrom, GENERIC_FAILURE, RATE_LIMITED } from "./shared";
 import type { ActionResult } from "./shared";
 
@@ -23,7 +24,7 @@ export async function trackReference(input: unknown): Promise<ActionResult<{ hre
     const { reference, phone } = parsed.data;
     const normalized = normalizePhone(phone);
 
-    const order = await getOrder(reference);
+    const order = await getSheetOrder(reference);
     if (order && order.customer.phone === normalized) {
       return { ok: true, data: { href: `/order-confirmation/${reference}` } };
     }
@@ -31,7 +32,7 @@ export async function trackReference(input: unknown): Promise<ActionResult<{ hre
     if (booking && booking.customer.phone === normalized) {
       return { ok: true, data: { href: `/bookings/${reference}` } };
     }
-    const application = await getPanditApplication(reference);
+    const application = await getSheetPanditApplication(reference);
     if (application && application.phone === normalized) {
       return { ok: true, data: { href: `/pandits/register/${reference}` } };
     }

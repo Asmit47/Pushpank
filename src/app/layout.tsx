@@ -1,13 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { EB_Garamond, Raleway, Tiro_Devanagari_Sanskrit } from "next/font/google";
-import { CartHydrator } from "@/components/cart/cart-hydrator";
-import { FloatingActions } from "@/components/layout/floating-actions";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { MotionProvider } from "@/components/motion/motion-provider";
+import { ShopFrame } from "@/components/layout/shop-frame";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/data/site";
 import { orgGraph } from "@/lib/seo";
+import { loadStorefrontContent } from "@/lib/storefront";
 import "./globals.css";
 
 const raleway = Raleway({
@@ -89,7 +86,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const content = await loadStorefrontContent();
   return (
     <html
       lang="en"
@@ -98,22 +96,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-dvh flex-col bg-night text-parchment">
         <JsonLd data={orgGraph()} />
-        <div className="grain" aria-hidden />
-        <MotionProvider>
-          <CartHydrator />
-          <a
-            href="#main"
-            className="sr-only z-[var(--z-skip)] rounded-full bg-gold px-4 py-2 text-parchment focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
-          >
-            Skip to content
-          </a>
-          <SiteHeader />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-          <FloatingActions />
-        </MotionProvider>
+        <ShopFrame
+          products={content.products}
+          categories={content.categories}
+          announcements={content.announcements}
+        >
+          {children}
+        </ShopFrame>
       </body>
     </html>
   );

@@ -1,8 +1,6 @@
-import { categories } from "@/data/categories";
 import { decorationCategories } from "@/data/decorations";
 import { occasions } from "@/data/occasions";
 import { pandits } from "@/data/pandits";
-import { products } from "@/data/products";
 import { services } from "@/data/services";
 import type { Category, Product, Service, Variant } from "@/types";
 
@@ -24,23 +22,15 @@ export function getVariantPrice(v: Variant) {
   return v.salePrice ?? v.price;
 }
 
-export function getAllProducts() {
-  return products;
-}
-
-export function getProduct(slug: string) {
+export function findProduct(products: Product[], slug: string) {
   return products.find((p) => p.slug === slug);
 }
 
-export function getProductById(id: string) {
+export function findProductById(products: Product[], id: string) {
   return products.find((p) => p.id === id);
 }
 
-export function getCategories(): Category[] {
-  return categories;
-}
-
-export function getCategory(slug: string) {
+export function findCategory(categories: Category[], slug: string) {
   return categories.find((c) => c.slug === slug);
 }
 
@@ -52,15 +42,15 @@ export function getService(slug: string) {
   return services.find((s) => s.slug === slug);
 }
 
-export function getPrimaryCategory(product: Product) {
-  return getCategory(product.collections[0]);
+export function getPrimaryCategory(categories: Category[], product: Product) {
+  return findCategory(categories, product.collections[0]);
 }
 
-export function getFeaturedProducts(limit = 4) {
+export function getFeaturedProducts(products: Product[], limit = 4) {
   return products.filter((p) => p.featured && isProductAvailable(p)).slice(0, limit);
 }
 
-export function getRelatedProducts(product: Product, limit = 4) {
+export function getRelatedProducts(products: Product[], product: Product, limit = 4) {
   return products
     .filter((p) => p.id !== product.id && p.collections.some((c) => product.collections.includes(c)))
     .slice(0, limit);
@@ -90,7 +80,7 @@ export type ProductQuery = {
   occasion?: string;
 };
 
-export function queryProducts(query: ProductQuery): Product[] {
+export function queryProducts(products: Product[], query: ProductQuery): Product[] {
   let list = products.slice();
   if (query.collection) list = list.filter((p) => p.collections.includes(query.collection!));
   if (query.occasion) list = list.filter((p) => p.occasions.includes(query.occasion!));
@@ -146,7 +136,7 @@ export type SearchEntry = {
   keywords?: string[];
 };
 
-export function buildSearchIndex(): SearchEntry[] {
+export function buildSearchIndex(products: Product[], categories: Category[]): SearchEntry[] {
   return [
     ...products.map<SearchEntry>((p) => ({
       type: "Product",

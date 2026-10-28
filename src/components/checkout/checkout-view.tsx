@@ -14,6 +14,7 @@ import { FormError, FormSection, HoneypotField } from "@/components/ui/form-bits
 import { Media } from "@/components/ui/media";
 import { placeOrder } from "@/lib/actions/order";
 import { resolveLines, summarize, useCart, useCartHydrated } from "@/lib/cart-store";
+import { useCatalog } from "@/lib/catalog-context";
 import { formatPrice } from "@/lib/format";
 import { checkoutFormSchema } from "@/lib/schemas";
 import type { CheckoutFormValues } from "@/lib/schemas";
@@ -23,7 +24,8 @@ export function CheckoutView() {
   const router = useRouter();
   const items = useCart((s) => s.items);
   const hydrated = useCartHydrated();
-  const lines = useMemo(() => resolveLines(items), [items]);
+  const { products } = useCatalog();
+  const lines = useMemo(() => resolveLines(items, products), [items, products]);
   const totals = summarize(lines);
   const hasUnavailable = lines.some((l) => !l.available);
   const [formError, setFormError] = useState<string>();

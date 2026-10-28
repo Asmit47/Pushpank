@@ -3,13 +3,15 @@ import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Media } from "@/components/ui/media";
-import { isCampaignVisible, site } from "@/data/site";
 import { formatDate } from "@/lib/format";
+import { isCampaignVisible } from "@/lib/storefront-static";
+import { loadStorefrontContent } from "@/lib/storefront";
 
 /** Hidden automatically when the campaign is switched off or its end date has passed. */
-export function CampaignBlock() {
-  if (!isCampaignVisible()) return null;
-  const c = site.campaign;
+export async function CampaignBlock() {
+  const { campaign } = await loadStorefrontContent();
+  if (!campaign || !isCampaignVisible(campaign)) return null;
+  const c = campaign;
   return (
     <section aria-labelledby="campaign-title" className="py-16 lg:py-20">
       <Container>
