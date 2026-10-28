@@ -30,7 +30,17 @@ export function MobileTabBar({ onMenu }: { onMenu: () => void }) {
       <ul className="grid grid-cols-5">
         {tabs.map((t) => (
           <li key={t.href}>
-            <Link href={t.href} aria-current={t.on ? "page" : undefined} className={cn("relative flex h-14 flex-col items-center justify-center gap-0.5 text-[11px]", t.on ? "text-gold-soft" : "text-muted")}>
+            <Link
+              href={t.href}
+              aria-current={t.on ? "page" : undefined}
+              className={cn("relative flex h-14 flex-col items-center justify-center gap-0.5 text-[11px]", t.on ? "text-gold-soft" : "text-muted")}
+              onClick={(e) => {
+                if (t.href !== "/" || pathname !== "/") return;
+                e.preventDefault();
+                const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                window.scrollTo({ top: 0, left: 0, behavior: reduce ? "instant" : "smooth" });
+              }}
+            >
               {t.on && (
                 <motion.span
                   layoutId="tabbar-indicator"

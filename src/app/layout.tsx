@@ -91,7 +91,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${raleway.variable} ${ebGaramond.variable} ${tiro.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${raleway.variable} ${ebGaramond.variable} ${tiro.variable}`}
+    >
       <body className="flex min-h-dvh flex-col bg-night text-parchment">
         <JsonLd data={orgGraph()} />
         <div className="grain" aria-hidden />

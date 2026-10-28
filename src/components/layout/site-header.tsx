@@ -133,7 +133,7 @@ export function SiteHeader() {
           <p aria-hidden lang="hi" className="mantra pointer-events-none absolute right-4 top-2 text-4xl text-gold/10">
             ॐ
           </p>
-          <Logo />
+          <Logo onClick={() => setMenuOpen(false)} />
           <div className="mt-3">
             <PincodeCheck compact />
           </div>

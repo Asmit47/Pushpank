@@ -126,13 +126,21 @@
 
 html {
   scroll-behavior: smooth;
-  /* Matches the real sticky header: 64px mobile row, 72px + 36px strip on lg. */
-  scroll-padding-top: 4.5rem;
+}
+
+/*
+  Keep the sticky-header offset on the target, not on the scrollport.
+  Next.js 16 uses html scroll-padding-top to decide whether a new page is
+  already "in view". A 7rem pad made the hero look out of range, so it
+  called scrollIntoView and landed on The store / What we keep.
+*/
+:target {
+  scroll-margin-top: 4.5rem;
 }
 
 @media (min-width: 1024px) {
-  html {
-    scroll-padding-top: 7rem;
+  :target {
+    scroll-margin-top: 7rem;
   }
 }
 
