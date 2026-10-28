@@ -19,18 +19,18 @@ export function ProductCard({ product, priority }: { product: Product; priority?
   const firstAvailable = getFirstAvailableVariant(product);
   const inStockVariants = product.variants.filter((v) => v.inStock);
   const pool = inStockVariants.length ? inStockVariants : product.variants;
-  const cheapest = pool.reduce((a, b) => (getVariantPrice(b) < getVariantPrice(a) ? b : a));
+  const cheapest = pool.length ? pool.reduce((a, b) => (getVariantPrice(b) < getVariantPrice(a) ? b : a)) : undefined;
   const multiple = product.variants.length > 1;
   const image = product.images[0];
   const second = product.secondaryImage ?? product.images[1];
   const [qty, setQty] = useState(1);
   const { saved, toggle } = useWishlist(product.id);
 
-  const current = cheapest.salePrice ?? cheapest.price;
-  const onSale = cheapest.salePrice !== undefined && cheapest.salePrice < cheapest.price;
+  const current = cheapest ? (cheapest.salePrice ?? cheapest.price) : 0;
+  const onSale = cheapest !== undefined && cheapest.salePrice !== undefined && cheapest.salePrice < cheapest.price;
 
   return (
-    <SpotlightCard className="h-full transition duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-lift">
+    <SpotlightCard className="lift h-full">
       <article className="group relative flex h-full flex-col">
         <div className="relative aspect-square overflow-hidden bg-night">
           <Media

@@ -15,7 +15,7 @@ export async function ReviewsSection() {
             <ReviewsRing data={data} />
           </div>
         ) : (
-          <div className="mx-auto mt-10 max-w-xl rounded-[20px] border border-dashed border-gold/40 bg-sanctum px-6 py-10 text-center">
+          <div className="mx-auto mt-10 max-w-xl rounded-card border border-dashed border-gold/40 bg-sanctum px-6 py-10 text-center">
             <p className="text-parchment/80">Verified Google reviews will appear here once the Places connection is set.</p>
             <a href={whatsappLink("Hello Pushpank, I would like to share feedback.")} className="mt-4 inline-block text-sm text-gold-soft underline">
               Share your feedback

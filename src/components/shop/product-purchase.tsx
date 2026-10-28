@@ -116,7 +116,7 @@ export function ProductPurchase({ product }: { product: Product }) {
         </p>
       )}
 
-      <form onSubmit={checkPincode} className="rounded-2xl border border-line bg-sanctum p-4" noValidate>
+      <form onSubmit={checkPincode} className="rounded-panel border border-line bg-sanctum p-4" noValidate>
         <label htmlFor="pdp-pincode" className="flex items-center gap-2 text-sm font-medium">
           <MapPin className="size-4 text-gold" aria-hidden /> Check delivery
         </label>
@@ -142,7 +142,7 @@ export function ProductPurchase({ product }: { product: Product }) {
         <p
           id="pdp-pincode-result"
           role="status"
-          className={cn("mt-2 min-h-5 text-xs", pinResult ? (pinResult.ok ? "text-forest" : "text-danger") : "text-muted")}
+          className={cn("mt-2 min-h-5 text-xs", pinResult ? (pinResult.ok ? "text-tulsi" : "text-danger") : "text-muted")}
         >
           {pinResult?.message ?? "Delivery availability depends on your pincode."}
         </p>

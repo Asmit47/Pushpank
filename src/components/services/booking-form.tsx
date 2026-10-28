@@ -127,7 +127,7 @@ export function BookingForm({ service }: { service: Service }) {
         <div className="grid gap-2">
           {SAMAGRI_OPTIONS.map((o) => (
             <label key={o.value} className="flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-sanctum px-4 py-3 text-sm has-[:checked]:border-gold has-[:checked]:bg-gold/10">
-              <input type="radio" value={o.value} className="accent-maroon" {...register("samagri")} />
+              <input type="radio" value={o.value} className="accent-gold-soft" {...register("samagri")} />
               {o.label}
             </label>
           ))}
@@ -150,7 +150,7 @@ export function BookingForm({ service }: { service: Service }) {
       <HoneypotField {...register("website")} />
       <FormError message={formError} />
 
-      <div className="rounded-xl bg-gold-100/60 p-4 text-sm text-parchment/80">
+      <div className="rounded-xl bg-gold-900/60 p-4 text-sm text-parchment/80">
         This is a <strong>booking request</strong>, not a confirmed booking. Our team will check pandit availability and
         contact you to confirm. Payment is not taken at this step.
       </div>

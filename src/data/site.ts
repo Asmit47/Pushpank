@@ -73,13 +73,6 @@ export const mainNav = {
     { label: "Puja Packages", href: "/puja-services#packages", image: "/images/placeholder/cat-kits.jpg" },
     { label: "Join as a Pandit", href: "/pandits/register", image: "/images/placeholder/p-puja-thali.jpg" },
   ],
-  book: [
-    { label: "Browse Rituals", href: "/puja-services" },
-    { label: "Book a Pandit", href: "/puja-services#rituals" },
-    { label: "Our Pandits", href: "/pandits" },
-    { label: "Puja Packages", href: "/puja-services#packages" },
-    { label: "Join as a Pandit", href: "/pandits/register" },
-  ],
   decorations: [
     { label: "Home Puja Decorations", href: "/decorations-events#home-puja-decorations" },
     { label: "Havan Arrangements", href: "/decorations-events#havan-arrangements" },
@@ -88,9 +81,11 @@ export const mainNav = {
   ],
   more: [
     { label: "About", href: "/about" },
+    { label: "Wishlist", href: "/wishlist" },
     { label: "Reviews", href: "/reviews" },
     { label: "FAQs", href: "/faq" },
     { label: "Contact", href: "/contact" },
     { label: "Track order", href: "/track" },
+    { label: "Account", href: "/account" },
   ],
 };

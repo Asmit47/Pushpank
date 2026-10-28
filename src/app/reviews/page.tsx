@@ -25,7 +25,7 @@ export default async function ReviewsPage() {
           )}
         </div>
       ) : (
-        <p className="mt-8 rounded-[20px] border border-dashed border-gold/40 bg-sanctum p-8 text-parchment/80">
+        <p className="mt-8 rounded-card border border-dashed border-gold/40 bg-sanctum p-8 text-parchment/80">
           Connect a Google Place ID to show live reviews. Until then, nothing is invented here.
         </p>
       )}

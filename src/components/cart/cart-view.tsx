@@ -1,6 +1,7 @@
 "use client";
 
 import { ShoppingBag } from "lucide-react";
+import { AnimatePresence } from "motion/react";
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -16,7 +17,7 @@ export function CartView() {
   const hasUnavailable = lines.some((l) => !l.available);
 
   if (!hydrated) {
-    return <div className="h-64 animate-pulse rounded-2xl bg-sanctum/80" aria-label="Loading your cart" role="status" />;
+    return <div className="h-64 animate-pulse rounded-panel bg-sanctum/80" aria-label="Loading your cart" role="status" />;
   }
 
   if (lines.length === 0) {
@@ -32,12 +33,14 @@ export function CartView() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-start">
-      <ul className="divide-y divide-line rounded-2xl border border-line bg-sanctum px-4 sm:px-6">
-        {lines.map((line) => (
-          <CartLine key={`${line.product.id}:${line.variant.id}`} line={line} />
-        ))}
+      <ul className="divide-y divide-line rounded-panel border border-line bg-sanctum px-4 sm:px-6">
+        <AnimatePresence initial={false} mode="popLayout">
+          {lines.map((line) => (
+            <CartLine key={`${line.product.id}:${line.variant.id}`} line={line} />
+          ))}
+        </AnimatePresence>
       </ul>
-      <aside className="space-y-4 rounded-2xl border border-line bg-sanctum p-5 lg:sticky lg:top-24">
+      <aside className="space-y-4 rounded-panel border border-line bg-sanctum p-5 lg:sticky lg:top-24">
         <h2 className="text-2xl font-semibold text-gold-soft">Order summary</h2>
         <CartSummary {...totals} />
         {hasUnavailable && (

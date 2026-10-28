@@ -32,13 +32,29 @@ export function useWishlist(productId: string) {
     toggle: () => {
       const list = read();
       const next = list.includes(productId) ? list.filter((id) => id !== productId) : [...list, productId];
-      cache = next;
-      try {
-        window.localStorage.setItem(KEY, JSON.stringify(next));
-      } catch {
-        // Storage unavailable (private mode) — the in-memory store still works.
-      }
-      for (const listener of listeners) listener();
+      write(next);
     },
   };
 }
+
+/** The full saved-id list (newest last), or an empty list until hydrated. */
+export function useWishlistList() {
+  return useSyncExternalStore(subscribe, read, () => EMPTY);
+}
+
+function subscribe(onStoreChange: () => void) {
+  listeners.add(onStoreChange);
+  return () => listeners.delete(onStoreChange);
+}
+
+function write(next: string[]) {
+  cache = next;
+  try {
+    window.localStorage.setItem(KEY, JSON.stringify(next));
+  } catch {
+    // Storage unavailable (private mode) — the in-memory store still works.
+  }
+  for (const listener of listeners) listener();
+}
+
+const EMPTY: string[] = [];

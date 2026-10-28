@@ -9,6 +9,7 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { ProductFilters } from "./product-filters";
 import { ProductGrid } from "./product-grid";
+import { ShopSearchInput } from "./shop-search-input";
 
 type RawParams = Record<string, string | string[] | undefined>;
 const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
@@ -27,11 +28,13 @@ export function ListingView({
   searchParams: RawParams;
 }) {
   const occasion = first(searchParams.occasion);
+  const q = first(searchParams.q) ?? "";
   const products = queryProducts({
     collection,
     sort: parseSort(first(searchParams.sort)),
     price: first(searchParams.price),
     inStock: first(searchParams.stock) === "1",
+    q: q || undefined,
     occasion,
   });
   const total = queryProducts({ collection }).length;
@@ -41,12 +44,18 @@ export function ListingView({
       <header className="border-b border-line/70 bg-sanctum/50">
         <Container className="py-4 lg:py-5">
           <Breadcrumbs items={crumbs} />
-          <h1 className="mt-2 font-serif text-2xl leading-tight text-gold-soft sm:text-3xl">{title}</h1>
-          <p className="mt-1 text-sm text-muted" role="status" aria-live="polite">
-            {products.length === total
-              ? `${total} ${total === 1 ? "product" : "products"}`
-              : `${products.length} of ${total} products`}
-          </p>
+          <div className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 className="font-serif text-2xl leading-tight text-gold-soft sm:text-3xl">{title}</h1>
+              <p className="mt-1 text-sm text-muted" role="status" aria-live="polite">
+                {products.length === total
+                  ? `${total} ${total === 1 ? "product" : "products"}`
+                  : `${products.length} of ${total} products`}
+              </p>
+            </div>
+            {/* Search is offered on the full shop listing; collections stay browse-first. */}
+            {!collection && <ShopSearchInput className="w-full sm:w-72" />}
+          </div>
         </Container>
       </header>
 
@@ -102,7 +111,7 @@ export function ListingView({
           <ProductGrid products={products} clearHref={basePath} />
         </div>
 
-        <p className="mt-8 flex items-start gap-3 rounded-[20px] border border-tulsi/20 bg-forest-100/50 p-4 text-sm leading-relaxed text-muted">
+        <p className="mt-8 flex items-start gap-3 rounded-card border border-tulsi/20 bg-tulsi-100/50 p-4 text-sm leading-relaxed text-muted">
           <Truck className="mt-0.5 size-4 shrink-0 text-tulsi" aria-hidden />
           <span>
             Fresh flowers are perishable. Delivery coverage and charges are confirmed at checkout, and fresh items

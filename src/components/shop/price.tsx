@@ -27,7 +27,7 @@ export function Price({
             <span className="sr-only">Original price </span>
             {formatPrice(price)}
           </s>
-          <span className="rounded bg-forest-100 px-1.5 py-0.5 text-xs font-medium text-forest">
+          <span className="rounded bg-tulsi-100 px-1.5 py-0.5 text-xs font-medium text-tulsi">
             Save {formatPrice(price - salePrice)}
           </span>
         </>

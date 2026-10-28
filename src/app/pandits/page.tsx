@@ -50,11 +50,11 @@ export default async function PanditsPage({
       <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((p) => (
           <li key={p.slug}>
-            <Link href={`/pandits/${p.slug}`} className="block overflow-hidden rounded-[20px] border border-gold/20 bg-sanctum">
+            <Link href={`/pandits/${p.slug}`} className="lift group block overflow-hidden rounded-card border border-gold/20 bg-sanctum">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.image.src} alt="" className="aspect-[4/3] w-full object-cover" />
+              <img src={p.image.src} alt="" className="img-zoom aspect-[4/3] w-full object-cover" />
               <span className="block p-4">
-                <span className="font-serif text-2xl text-gold-soft">{p.name}</span>
+                <span className="block font-serif text-2xl text-gold-soft transition-colors group-hover:text-gold">{p.name}</span>
                 <span className="mt-1 block text-sm text-muted">{p.years} years · {p.areas.join(", ")}</span>
               </span>
             </Link>
@@ -62,7 +62,7 @@ export default async function PanditsPage({
         ))}
       </ul>
       {list.length === 0 && <p className="mt-8 text-muted">No pandit matches those filters.</p>}
-      <div className="mt-12 rounded-[20px] border border-gold/30 bg-maroon-900 p-6">
+      <div className="mt-12 rounded-card border border-gold/30 bg-maroon-900 p-6">
         <h2 className="text-3xl text-gold-soft">Conduct pujas with Pushpank</h2>
         <p className="mt-2 max-w-lg text-parchment/80">Share your rituals, languages and the areas you cover. We review every application before anyone is listed.</p>
         <Button href="/pandits/register" className="mt-5">Join as a pandit</Button>

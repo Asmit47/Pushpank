@@ -78,12 +78,12 @@ export default async function BookingPage({ params }: PageProps<"/bookings/[id]"
         <h1 className="mt-4 text-4xl font-semibold text-gold-soft sm:text-5xl">{copy.title}</h1>
         <p className="mt-3 text-muted">
           Booking reference{" "}
-          <strong className="select-all rounded bg-gold-100 px-2 py-0.5 font-mono text-parchment">{booking.reference}</strong>
+          <strong className="select-all rounded bg-gold-900 px-2 py-0.5 font-mono text-parchment">{booking.reference}</strong>
         </p>
       </div>
 
       <div
-        className="mt-8 rounded-2xl border border-line bg-sanctum p-5 sm:p-6"
+        className="mt-8 rounded-panel border border-line bg-sanctum p-5 sm:p-6"
         role="status"
         aria-label="Booking status"
       >
@@ -102,7 +102,7 @@ export default async function BookingPage({ params }: PageProps<"/bookings/[id]"
         <p className="mt-3 text-parchment/80">{copy.body}</p>
       </div>
 
-      <dl className="mt-6 divide-y divide-line rounded-2xl border border-line bg-sanctum px-5 sm:px-6">
+      <dl className="mt-6 divide-y divide-line rounded-panel border border-line bg-sanctum px-5 sm:px-6">
         {rows.map(([k, v]) => (
           <div key={k} className="grid gap-1 py-3 text-sm sm:grid-cols-[10rem_1fr]">
             <dt className="text-muted">{k}</dt>
@@ -111,7 +111,7 @@ export default async function BookingPage({ params }: PageProps<"/bookings/[id]"
         ))}
       </dl>
 
-      <section className="mt-6 rounded-2xl bg-sanctum p-5 text-sm" aria-labelledby="change">
+      <section className="mt-6 rounded-panel bg-sanctum p-5 text-sm" aria-labelledby="change">
         <h2 id="change" className="font-sans text-base font-semibold">
           Need to reschedule or cancel?
         </h2>

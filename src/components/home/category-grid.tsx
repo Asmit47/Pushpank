@@ -21,7 +21,7 @@ export function CategoryGrid() {
               <li key={c.slug} className={i === 0 ? "md:col-span-3 md:row-span-2" : "md:col-span-3 lg:col-span-1"}>
                 <Link
                   href={`/collections/${c.slug}`}
-                  className="group relative block h-44 overflow-hidden rounded-[20px] border border-line/80 md:h-full md:min-h-36"
+                  className="group relative block h-44 overflow-hidden rounded-card border border-line/80 md:h-full md:min-h-36"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={c.image.src} alt="" className="img-zoom size-full object-cover" />
@@ -49,7 +49,7 @@ export function CategoryGrid() {
             <li className="md:col-span-3 lg:col-span-1">
               <Link
                 href="/shop"
-                className="group flex h-44 flex-col justify-between overflow-hidden rounded-[20px] border border-gold/30 bg-gold/[0.06] p-5 transition-colors duration-300 hover:bg-gold/[0.12] md:h-full md:min-h-36"
+                className="group flex h-44 flex-col justify-between overflow-hidden rounded-card border border-gold/30 bg-gold/[0.06] p-5 transition-colors duration-300 hover:bg-gold/[0.12] md:h-full md:min-h-36"
               >
                 <span
                   aria-hidden

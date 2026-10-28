@@ -14,7 +14,7 @@ export function CampaignBlock() {
     <section aria-labelledby="campaign-title" className="py-16 lg:py-20">
       <Container>
         <Reveal>
-          <div className="grid overflow-hidden rounded-[20px] border border-gold/25 bg-maroon-900/80 shadow-lift text-parchment md:grid-cols-2">
+          <div className="grid overflow-hidden rounded-card border border-gold/25 bg-maroon-900/80 shadow-lift text-parchment md:grid-cols-2">
             <div className="relative flex flex-col justify-center p-8 sm:p-12 lg:p-16">
               <span lang="hi" aria-hidden className="mantra pointer-events-none absolute -top-2 right-6 select-none text-6xl text-gold/[0.08]">
                 दीपावली

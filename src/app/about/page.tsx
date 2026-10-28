@@ -15,7 +15,7 @@ export default function AboutPage() {
       intro="A Lucknow-based business for fresh flowers, puja essentials and ritual services."
       hindi="पुष्पांक"
     >
-      <p className="rounded-xl border border-gold/50 bg-gold-100/60 p-4 text-sm">
+      <p className="rounded-xl border border-gold/50 bg-gold-900/60 p-4 text-sm">
         <strong>Placeholder.</strong> Replace this page with Pushpank&apos;s verified story, team and credentials. Avoid
         claims that cannot be supported, such as awards, years in business or superlatives.
       </p>
@@ -25,7 +25,7 @@ export default function AboutPage() {
         width={1536}
         height={1024}
         sizes="(min-width: 768px) 48rem, 100vw"
-        className="w-full rounded-[20px] object-cover"
+        className="w-full rounded-card object-cover"
       />
       <section>
         <h2>What we do</h2>

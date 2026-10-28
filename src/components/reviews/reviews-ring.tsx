@@ -111,7 +111,7 @@ function Summary({ data }: { data: GoogleReviewPayload }) {
 
 function Card({ review }: { review: GoogleReviewPayload["reviews"][number] }) {
   return (
-    <article className="rounded-[20px] border border-gold/25 bg-sanctum p-4 text-left shadow-card">
+    <article className="rounded-card border border-gold/25 bg-sanctum p-4 text-left shadow-card">
       <p className="text-gold">{"★".repeat(Math.round(review.rating))}</p>
       <p className="mt-2 line-clamp-3 text-sm text-parchment/90">{review.text}</p>
       <p className="mt-3 text-sm">

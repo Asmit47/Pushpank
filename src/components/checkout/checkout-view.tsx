@@ -40,7 +40,7 @@ export function CheckoutView() {
   });
 
   if (!hydrated) {
-    return <div className="h-64 animate-pulse rounded-2xl bg-sanctum/80" role="status" aria-label="Loading checkout" />;
+    return <div className="h-64 animate-pulse rounded-panel bg-sanctum/80" role="status" aria-label="Loading checkout" />;
   }
 
   if (lines.length === 0) {
@@ -145,7 +145,7 @@ export function CheckoutView() {
         <FormSection step={3} title="Payment">
           <div className="space-y-3">
             <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-gold bg-gold/10 p-4">
-              <input type="radio" name="payment" defaultChecked readOnly className="mt-1 accent-maroon" />
+              <input type="radio" name="payment" defaultChecked readOnly className="mt-1 accent-gold-soft" />
               <span>
                 <span className="block font-medium">Pay on confirmation</span>
                 <span className="block text-sm text-muted">
@@ -165,7 +165,7 @@ export function CheckoutView() {
         </FormSection>
       </div>
 
-      <aside className="space-y-4 rounded-2xl border border-line bg-sanctum p-5 lg:sticky lg:top-24">
+      <aside className="space-y-4 rounded-panel border border-line bg-sanctum p-5 lg:sticky lg:top-24">
         <h2 className="text-2xl font-semibold text-gold-soft">Order summary</h2>
         <ul className="divide-y divide-line">
           {lines.map((l) => (

@@ -20,14 +20,14 @@ export default function ContactPage() {
   return (
     <ContentPage title="Contact us" intro="Questions about an order, a booking or an arrangement? Reach us any of these ways.">
       {c.isPlaceholder && (
-        <p className="rounded-xl border border-gold/50 bg-gold-100/60 p-4 text-sm">
+        <p className="rounded-xl border border-gold/50 bg-gold-900/60 p-4 text-sm">
           <strong>Placeholder details.</strong> Replace the phone, WhatsApp, email, address and hours with verified
           information before launch (see <code>src/data/site.ts</code>).
         </p>
       )}
-      <div className="rounded-2xl border border-line bg-sanctum p-6">
+      <div className="rounded-panel border border-line bg-sanctum p-6">
         <div className="flex items-start gap-4">
-          <MessageCircle className="mt-1 size-6 shrink-0 text-forest" aria-hidden />
+          <MessageCircle className="mt-1 size-6 shrink-0 text-tulsi" aria-hidden />
           <div>
             <h2>WhatsApp</h2>
             <p className="text-sm">The quickest way to ask about an order, a booking or an arrangement.</p>
@@ -39,7 +39,7 @@ export default function ContactPage() {
       </div>
       <ul className="grid gap-4 list-none! pl-0! sm:grid-cols-2">
         {items.map(({ icon: Icon, label, value, href }) => (
-          <li key={label} className="rounded-2xl border border-line bg-sanctum p-5">
+          <li key={label} className="rounded-panel border border-line bg-sanctum p-5">
             <Icon className="size-5 text-gold" aria-hidden />
             <p className="mt-3 text-sm text-muted">{label}</p>
             {href ? (

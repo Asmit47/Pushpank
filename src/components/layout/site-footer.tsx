@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { mainNav, site, whatsappLink } from "@/data/site";
+import { FooterYear } from "./footer-year";
 import { Logo } from "./logo";
 
 const forPandits = [
@@ -12,6 +13,7 @@ const forPandits = [
 const help = [
   { label: "FAQs", href: "/faq" },
   { label: "Track order", href: "/track" },
+  { label: "Wishlist", href: "/wishlist" },
   { label: "Contact", href: "/contact" },
   { label: "Reviews", href: "/reviews" },
 ];
@@ -19,7 +21,7 @@ const help = [
 function Column({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <h2 className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-gold">{title}</h2>
+      <h2 className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold">{title}</h2>
       <ul className="mt-4 space-y-2.5 text-[0.9rem] lg:mt-3 lg:space-y-1.5">
         {links.map((l) => (
           <li key={l.href + l.label}>
@@ -68,7 +70,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="mt-10 flex flex-col gap-4 border-t border-gold/15 pt-6 text-[0.8rem] text-parchment/55 md:flex-row md:items-center md:justify-between lg:mt-8 lg:gap-3 lg:pt-5">
-          <p>© {new Date().getFullYear()} Pushpank. All rights reserved.</p>
+          <p>© <FooterYear initial={new Date().getFullYear()} /> Pushpank. All rights reserved.</p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
             <li><Link href="/shipping-returns" className="transition-colors hover:text-gold-soft">Delivery and refunds</Link></li>
             <li><Link href="/privacy" className="transition-colors hover:text-gold-soft">Privacy</Link></li>

@@ -1,5 +1,6 @@
 import { categories } from "@/data/categories";
 import { decorationCategories } from "@/data/decorations";
+import { occasions } from "@/data/occasions";
 import { pandits } from "@/data/pandits";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
@@ -105,7 +106,9 @@ export function queryProducts(query: ProductQuery): Product[] {
   }
   if (query.q) {
     const q = query.q.toLowerCase();
-    list = list.filter((p) => p.name.toLowerCase().includes(q));
+    list = list.filter(
+      (p) => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q),
+    );
   }
   switch (query.sort) {
     case "price-asc":
@@ -134,12 +137,13 @@ export function parseSort(value: string | undefined): SortValue {
 // --- Search index (client-side search dialog) ------------------------------
 
 export type SearchEntry = {
-  type: "Product" | "Category" | "Puja service" | "Decorations" | "Pandit" | "Page";
+  type: "Product" | "Category" | "Puja service" | "Decorations" | "Pandit" | "Occasion" | "Page";
   title: string;
   description: string;
   href: string;
   image?: string;
   price?: number;
+  keywords?: string[];
 };
 
 export function buildSearchIndex(): SearchEntry[] {
@@ -157,6 +161,14 @@ export function buildSearchIndex(): SearchEntry[] {
       title: c.name,
       description: c.description,
       href: `/collections/${c.slug}`,
+    })),
+    ...occasions.map<SearchEntry>((o) => ({
+      type: "Occasion",
+      title: o.name,
+      description: `Essentials and kits for ${o.name}`,
+      href: `/shop?occasion=${o.slug}`,
+      image: o.image.src,
+      keywords: [o.hindi, o.slug],
     })),
     ...services.map<SearchEntry>((s) => ({
       type: "Puja service",
@@ -179,6 +191,7 @@ export function buildSearchIndex(): SearchEntry[] {
       image: p.image.src,
     })),
     ...[
+      { title: "Wishlist", description: "Products you saved for later", href: "/wishlist" },
       { title: "About Pushpank", description: "The shop and the people behind it", href: "/about" },
       { title: "Reviews", description: "What customers say on Google", href: "/reviews" },
       { title: "FAQs", description: "Delivery, booking and samagri", href: "/faq" },

@@ -1,6 +1,7 @@
 "use client";
 
 import { ShoppingBag } from "lucide-react";
+import { AnimatePresence } from "motion/react";
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
@@ -35,9 +36,11 @@ export function CartDrawer() {
       ) : (
         <>
           <ul className="flex-1 divide-y divide-line overflow-y-auto px-5">
-            {lines.map((line) => (
-              <CartLine key={`${line.product.id}:${line.variant.id}`} line={line} compact />
-            ))}
+            <AnimatePresence initial={false} mode="popLayout">
+              {lines.map((line, index) => (
+                <CartLine key={`${line.product.id}:${line.variant.id}`} line={line} compact index={index} />
+              ))}
+            </AnimatePresence>
           </ul>
           <div className="space-y-4 border-t border-line bg-sanctum/80 px-5 py-4">
             <CartSummary {...totals} />

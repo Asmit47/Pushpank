@@ -54,7 +54,6 @@ function item(s: Seed, day: string): Product {
     details: [{ label: "Note", value: "Placeholder product" }],
     perishable: Boolean(s.perishable),
     featured: Boolean(s.featured),
-    isFeatured: Boolean(s.featured),
     createdAt: day,
     occasions: s.occasions,
     badge: s.badge,

@@ -16,7 +16,7 @@ export function FloatingActions() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Pushpank on WhatsApp"
-      className="fixed bottom-20 right-4 z-30 grid size-12 place-items-center rounded-full bg-tulsi text-night shadow-lift lg:bottom-6 lg:right-6 lg:size-14"
+      className="fixed bottom-20 right-4 z-[var(--z-fab)] grid size-12 place-items-center rounded-full bg-tulsi text-night shadow-lift lg:bottom-6 lg:right-6 lg:size-14"
     >
       <MessageCircle className="size-6" strokeWidth={1.5} aria-hidden />
     </a>

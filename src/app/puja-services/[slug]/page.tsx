@@ -37,7 +37,7 @@ function List({ items, tone }: { items: string[]; tone: "yes" | "no" }) {
     <ul className="mt-3 space-y-2 text-[0.95rem]">
       {items.map((i) => (
         <li key={i} className="flex gap-2.5">
-          <Icon className={`mt-0.5 size-4 shrink-0 ${tone === "yes" ? "text-forest" : "text-muted"}`} aria-hidden />
+          <Icon className={`mt-0.5 size-4 shrink-0 ${tone === "yes" ? "text-tulsi" : "text-muted"}`} aria-hidden />
           <span>{i}</span>
         </li>
       ))}
@@ -101,7 +101,7 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
           height={768}
           priority
           sizes="(min-width: 1024px) 50vw, 100vw"
-          wrapperClassName="aspect-[4/3] rounded-3xl border border-line"
+          wrapperClassName="aspect-[4/3] rounded-card border border-line"
           className="size-full"
         />
       </div>
@@ -110,7 +110,7 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
         <SectionHeading title="Package options" description="Prices are indicative. The final amount is confirmed by our team." />
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {service.packages.map((p) => (
-            <div key={p.id} className="rounded-2xl border border-line bg-sanctum p-6">
+            <div key={p.id} className="rounded-panel border border-line bg-sanctum p-6">
               <div className="flex items-start justify-between gap-3">
                 <h3 className="text-2xl font-semibold text-gold-soft">{p.name}</h3>
                 {p.indicativePrice && (
@@ -128,15 +128,15 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
       </Reveal>
 
       <Reveal className="mt-14 grid gap-6 md:grid-cols-3">
-        <section className="rounded-2xl border border-line bg-sanctum p-6">
+        <section className="rounded-panel border border-line bg-sanctum p-6">
           <h2 className="text-2xl font-semibold text-gold-soft">Included</h2>
           <List items={service.inclusions} tone="yes" />
         </section>
-        <section className="rounded-2xl border border-line bg-sanctum p-6">
+        <section className="rounded-panel border border-line bg-sanctum p-6">
           <h2 className="text-2xl font-semibold text-gold-soft">Not included</h2>
           <List items={service.exclusions} tone="no" />
         </section>
-        <section className="rounded-2xl border border-line bg-sanctum p-6">
+        <section className="rounded-panel border border-line bg-sanctum p-6">
           <h2 className="text-2xl font-semibold text-gold-soft">What you need to provide</h2>
           <List items={service.customerProvides} tone="yes" />
         </section>
@@ -151,12 +151,12 @@ export default async function ServicePage({ params }: PageProps<"/puja-services/
               <li>2. We check pandit availability for your date.</li>
               <li>3. We contact you to confirm or suggest another slot.</li>
             </ol>
-            <section className="mt-8 rounded-2xl bg-sanctum p-5 text-sm">
+            <section className="mt-8 rounded-panel bg-sanctum p-5 text-sm">
               <h3 className="font-sans text-base font-semibold">Cancellation and rescheduling</h3>
               <p className="mt-2 leading-relaxed text-parchment/75">{service.cancellationPolicy}</p>
             </section>
           </div>
-          <div className="rounded-3xl border border-line bg-sanctum p-5 shadow-card sm:p-8">
+          <div className="rounded-card border border-line bg-sanctum p-5 shadow-card sm:p-8">
             <BookingForm service={service} />
           </div>
         </div>

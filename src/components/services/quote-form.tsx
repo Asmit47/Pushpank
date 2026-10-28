@@ -62,11 +62,11 @@ export function QuoteForm() {
   if (reference) {
     return (
       <div role="status" className="py-6 text-center">
-        <CheckCircle2 className="mx-auto size-12 text-forest" aria-hidden />
+        <CheckCircle2 className="mx-auto size-12 text-tulsi" aria-hidden />
         <h3 className="mt-4 text-3xl font-semibold text-gold-soft">Quote request received</h3>
         <p className="mt-2 text-muted">
           Reference{" "}
-          <strong className="select-all rounded bg-gold-100 px-2 py-0.5 font-mono text-parchment">{reference}</strong>
+          <strong className="select-all rounded bg-gold-900 px-2 py-0.5 font-mono text-parchment">{reference}</strong>
         </p>
         <p className="mx-auto mt-4 max-w-md text-sm text-parchment/80">
           Our team will review your requirements and contact you with a quote. This request does{" "}
@@ -141,7 +141,7 @@ export function QuoteForm() {
               key={o}
               className="flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-sanctum px-4 py-3 text-sm has-[:checked]:border-gold has-[:checked]:bg-gold/10"
             >
-              <input type="checkbox" value={o} className="size-4 accent-maroon" {...register("services")} />
+              <input type="checkbox" value={o} className="size-4 accent-gold-soft" {...register("services")} />
               {o}
             </label>
           ))}
@@ -167,7 +167,7 @@ export function QuoteForm() {
       <HoneypotField {...register("website")} />
       <FormError message={formError} />
 
-      <p className="rounded-xl bg-gold-100/60 p-4 text-sm text-parchment/80">
+      <p className="rounded-xl bg-gold-900/60 p-4 text-sm text-parchment/80">
         Submitting a quote request does not confirm the service. We will review it and contact you with a quote.
       </p>
 

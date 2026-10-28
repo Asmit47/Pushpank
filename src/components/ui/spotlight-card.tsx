@@ -23,7 +23,7 @@ export function SpotlightCard({
         y.set(e.clientY - rect.top);
       }}
       className={cn(
-        "group relative overflow-hidden rounded-[20px] border border-gold/20 bg-sanctum",
+        "group relative overflow-hidden rounded-card border border-gold/20 bg-sanctum",
         className,
       )}
     >

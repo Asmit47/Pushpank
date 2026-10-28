@@ -17,7 +17,7 @@ export default function AccountPage() {
       <ul className="grid gap-4 sm:grid-cols-2">
         {links.map((l) => (
           <li key={l.href}>
-            <Link href={l.href} className="block rounded-[20px] border border-line bg-sanctum p-5 hover:border-gold/50">
+            <Link href={l.href} className="block rounded-card border border-line bg-sanctum p-5 hover:border-gold/50">
               <h2 className="text-2xl text-gold-soft">{l.title}</h2>
               <p className="mt-2 text-sm text-parchment/75">{l.body}</p>
             </Link>

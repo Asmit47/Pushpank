@@ -32,7 +32,8 @@ const panelMotion: Record<
     initial: { y: -24, opacity: 0 },
     animate: { y: 0, opacity: 1 },
     exit: { y: -24, opacity: 0 },
-    className: "left-1/2 top-4 w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 rounded-2xl sm:top-24",
+    // Mobile starts below the 64px sticky header so the palette never sits under it.
+    className: "left-1/2 top-[4.5rem] w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 rounded-panel sm:top-24",
   },
 };
 
@@ -99,7 +100,7 @@ export function Sheet({
   return (
     <AnimatePresence>
       {open && (
-        <div className="fixed inset-0 z-50" onKeyDown={onKeyDown}>
+        <div className="fixed inset-0 z-[var(--z-overlay)]" onKeyDown={onKeyDown}>
           <motion.div
             className="absolute inset-0 bg-black/65"
             initial={{ opacity: 0 }}

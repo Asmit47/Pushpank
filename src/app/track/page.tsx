@@ -14,7 +14,7 @@ export default function TrackPage() {
       <p className="mt-3 text-muted">
         Enter the reference we gave you and the phone number you used. We ask for both to protect your details.
       </p>
-      <div className="mt-8 rounded-3xl border border-line bg-sanctum p-5 shadow-card sm:p-8">
+      <div className="mt-8 rounded-card border border-line bg-sanctum p-5 shadow-card sm:p-8">
         <TrackForm />
       </div>
     </Container>

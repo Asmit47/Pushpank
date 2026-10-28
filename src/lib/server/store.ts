@@ -1,26 +1,66 @@
 import "server-only";
 import { randomBytes } from "node:crypto";
+import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import type { Booking, Order, PanditApplication, QuoteRequest } from "@/types";
 
 /**
- * STUB PERSISTENCE. Records live in process memory and are lost on restart.
- * Replace the functions below with a database (for example Postgres via Prisma)
+ * STUB PERSISTENCE (file-based). Records live in data/db.json, written
+ * atomically (temp file + rename) through a serialized in-process queue, so
+ * submissions survive a restart. Swap this module for a real database later
  * without changing callers. Everything here is server-only.
  */
-type Db = {
-  orders: Map<string, Order>;
-  bookings: Map<string, Booking>;
-  quotes: Map<string, QuoteRequest>;
-  panditApplications: Map<string, PanditApplication>;
+type DbFile = {
+  orders: Record<string, Order>;
+  bookings: Record<string, Booking>;
+  quotes: Record<string, QuoteRequest>;
+  panditApplications: Record<string, PanditApplication>;
 };
 
-const g = globalThis as unknown as { __pushpankDb?: Db };
-const db: Db = (g.__pushpankDb ??= {
-  orders: new Map(),
-  bookings: new Map(),
-  quotes: new Map(),
-  panditApplications: new Map(),
-});
+const DB_DIR = join(process.cwd(), "data");
+const DB_PATH = join(DB_DIR, "db.json");
+
+const EMPTY: DbFile = { orders: {}, bookings: {}, quotes: {}, panditApplications: {} };
+
+/** Warm in-process copy of the last-read file; readers hit this, not the disk. */
+let cache: DbFile | null = null;
+
+// Every read-modify-write runs one at a time so a burst of submissions never
+// drops records between reading the file and renaming the next version in.
+let queue: Promise<unknown> = Promise.resolve();
+
+function enqueue<T>(fn: () => Promise<T>): Promise<T> {
+  const run = queue.then(fn, fn);
+  queue = run.then(
+    () => undefined,
+    () => undefined,
+  );
+  return run;
+}
+
+async function readDb(): Promise<DbFile> {
+  if (cache) return cache;
+  let raw: string;
+  try {
+    raw = await readFile(DB_PATH, "utf8");
+  } catch {
+    // No file yet (or unreadable directory) — start from the empty set.
+    cache = { ...EMPTY };
+    return cache;
+  }
+  // Throws on a corrupt file so writes never silently overwrite it.
+  cache = { ...EMPTY, ...(JSON.parse(raw) as Partial<DbFile>) };
+  return cache;
+}
+
+/** Atomic whole-file write: JSON to a unique temp file, then rename into place. */
+async function writeDb(db: DbFile): Promise<void> {
+  await mkdir(DB_DIR, { recursive: true });
+  const tmp = `${DB_PATH}.${process.pid}.${randomBytes(4).toString("hex")}.tmp`;
+  await writeFile(tmp, JSON.stringify(db, null, 2), "utf8");
+  await rename(tmp, DB_PATH);
+  cache = db;
+}
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"; // base32, no look-alikes
 
@@ -32,34 +72,54 @@ export function newReference() {
   return `PP-${out}`;
 }
 
-export async function saveOrder(order: Order) {
-  db.orders.set(order.reference, order);
-  return order;
+export function saveOrder(order: Order) {
+  return enqueue(async () => {
+    const db = await readDb();
+    db.orders[order.reference] = order;
+    await writeDb(db);
+    return order;
+  });
 }
+
 export async function getOrder(reference: string) {
-  return db.orders.get(reference);
+  return (await readDb()).orders[reference];
 }
 
-export async function saveBooking(booking: Booking) {
-  db.bookings.set(booking.reference, booking);
-  return booking;
+export function saveBooking(booking: Booking) {
+  return enqueue(async () => {
+    const db = await readDb();
+    db.bookings[booking.reference] = booking;
+    await writeDb(db);
+    return booking;
+  });
 }
+
 export async function getBooking(reference: string) {
-  return db.bookings.get(reference);
+  return (await readDb()).bookings[reference];
 }
 
-export async function saveQuote(quote: QuoteRequest) {
-  db.quotes.set(quote.reference, quote);
-  return quote;
+export function saveQuote(quote: QuoteRequest) {
+  return enqueue(async () => {
+    const db = await readDb();
+    db.quotes[quote.reference] = quote;
+    await writeDb(db);
+    return quote;
+  });
 }
+
 export async function getQuote(reference: string) {
-  return db.quotes.get(reference);
+  return (await readDb()).quotes[reference];
 }
 
-export async function savePanditApplication(application: PanditApplication) {
-  db.panditApplications.set(application.reference, application);
-  return application;
+export function savePanditApplication(application: PanditApplication) {
+  return enqueue(async () => {
+    const db = await readDb();
+    db.panditApplications[application.reference] = application;
+    await writeDb(db);
+    return application;
+  });
 }
+
 export async function getPanditApplication(reference: string) {
-  return db.panditApplications.get(reference);
+  return (await readDb()).panditApplications[reference];
 }

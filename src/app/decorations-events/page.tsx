@@ -50,7 +50,7 @@ export default function DecorationsPage() {
               <Reveal key={d.slug}>
                 <article
                   id={d.slug}
-                  className="grid scroll-mt-28 items-center gap-6 overflow-hidden rounded-3xl border border-line bg-sanctum md:grid-cols-2"
+                  className="grid scroll-mt-28 items-center gap-6 overflow-hidden rounded-card border border-line bg-sanctum md:grid-cols-2"
                 >
                   <Media
                     src={d.image.src}
@@ -88,7 +88,7 @@ export default function DecorationsPage() {
           <SectionHeading id="how-title" title="How it works" />
           <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {decorationSteps.map((s, i) => (
-              <li key={s.title} className="rounded-2xl border border-line bg-sanctum p-5">
+              <li key={s.title} className="rounded-panel border border-line bg-sanctum p-5">
                 <span className="font-serif text-4xl font-semibold text-gold">{i + 1}</span>
                 <h3 className="mt-2 font-sans text-base font-semibold">{s.title}</h3>
                 <p className="mt-1 text-sm text-parchment/75">{s.body}</p>
@@ -110,7 +110,7 @@ export default function DecorationsPage() {
             description="Tell us about your event. A quote request does not confirm the service."
             align="center"
           />
-          <div className="mt-8 rounded-3xl border border-line bg-sanctum p-5 shadow-card sm:p-8">
+          <div className="mt-8 rounded-card border border-line bg-sanctum p-5 shadow-card sm:p-8">
             <QuoteForm />
           </div>
           <p className="mt-5 text-center text-sm text-muted">

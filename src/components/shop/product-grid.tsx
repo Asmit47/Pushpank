@@ -28,11 +28,11 @@ export function ProductGrid({ products, clearHref }: { products: Product[]; clea
         {products.map((p, i) => (
           <li key={p.id} className="contents">
             {i > 0 && i % 8 === 0 && (
-              <div className="col-span-full relative overflow-hidden rounded-[20px] border border-gold/25 bg-maroon-900">
+              <div className="col-span-full relative overflow-hidden rounded-card border border-gold/25 bg-maroon-900">
                 <div className="motif-dots absolute inset-0 opacity-30" aria-hidden />
                 <div className="relative flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
                   <div className="max-w-xl">
-                    <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-gold">Festival edit</p>
+                    <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-gold">Festival edit</p>
                     <Link
                       href="/collections/festival-collections"
                       className="mt-2 block font-serif text-2xl leading-tight text-gold-soft transition-colors hover:text-gold sm:text-3xl"

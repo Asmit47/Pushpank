@@ -32,7 +32,6 @@ export type Product = {
   badge?: "Bestseller" | "New" | "Same-day" | "Festive";
   secondaryImage?: { src: string; alt: string };
   highlights?: string[];
-  isFeatured?: boolean;
 };
 
 export type Category = {

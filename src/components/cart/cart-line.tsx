@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
+import { motion } from "motion/react";
+import type { CSSProperties } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Media } from "@/components/ui/media";
 import { QuantityStepper } from "@/components/ui/quantity-stepper";
@@ -9,14 +11,26 @@ import { formatPrice } from "@/lib/format";
 import { useCart } from "@/lib/cart-store";
 import type { ResolvedLine } from "@/lib/cart-store";
 
-export function CartLine({ line, compact }: { line: ResolvedLine; compact?: boolean }) {
+export function CartLine({ line, compact, index = 0 }: { line: ResolvedLine; compact?: boolean; index?: number }) {
   const setQuantity = useCart((s) => s.setQuantity);
   const remove = useCart((s) => s.remove);
   const { product, variant } = line;
   const image = product.images[0];
 
+  // Mount-only entrance stagger (drawer open / newly added line); replays never
+  // fire because the key is stable per product+variant. `layout` + AnimatePresence
+  // in the parent make removals slide the remaining lines up smoothly.
+  const style =
+    index > 0 ? ({ "--enter-delay": `${Math.min(index * 45, 240)}ms` } as CSSProperties) : undefined;
+
   return (
-    <li className="flex gap-3 py-4 sm:gap-4">
+    <motion.li
+      layout
+      exit={{ opacity: 0, y: -6 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="fade-in flex gap-3 py-4 sm:gap-4"
+      style={style}
+    >
       <Link
         href={`/products/${product.slug}`}
         className="shrink-0"
@@ -71,6 +85,6 @@ export function CartLine({ line, compact }: { line: ResolvedLine; compact?: bool
           </div>
         </div>
       </div>
-    </li>
+    </motion.li>
   );
 }

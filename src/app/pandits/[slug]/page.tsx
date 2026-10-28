@@ -56,7 +56,7 @@ export default async function PanditProfile({ params }: { params: Promise<{ slug
             height={640}
             priority
             sizes="(min-width: 1024px) 320px, 80vw"
-            className="aspect-square w-full rounded-[20px] object-cover"
+            className="aspect-square w-full rounded-card object-cover"
           />
         </div>
 
@@ -68,7 +68,7 @@ export default async function PanditProfile({ params }: { params: Promise<{ slug
 
           <dl className="mt-8 grid gap-5 sm:grid-cols-3">
             {facts.map(({ icon: Icon, label, value }) => (
-              <div key={label} className="rounded-2xl border border-line bg-sanctum/70 p-4">
+              <div key={label} className="rounded-panel border border-line bg-sanctum/70 p-4">
                 <dt className="flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold">
                   <Icon className="size-3.5" strokeWidth={1.5} aria-hidden />
                   {label}

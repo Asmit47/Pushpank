@@ -91,16 +91,15 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${raleway.variable} ${ebGaramond.variable} ${tiro.variable}`}>
+    <html lang="en" className={`${raleway.variable} ${ebGaramond.variable} ${tiro.variable}`}>
       <body className="flex min-h-dvh flex-col bg-night text-parchment">
         <JsonLd data={orgGraph()} />
         <div className="grain" aria-hidden />
         <MotionProvider>
-
           <CartHydrator />
           <a
             href="#main"
-            className="sr-only z-[60] rounded-full bg-gold px-4 py-2 text-ivory focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+            className="sr-only z-[var(--z-skip)] rounded-full bg-gold px-4 py-2 text-parchment focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
           >
             Skip to content
           </a>

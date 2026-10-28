@@ -24,7 +24,7 @@ export default function RegisterPage() {
         </p>
         <ol className="mt-6 space-y-3 text-sm text-parchment/80">
           {steps.map((s) => (
-            <li key={s} className="rounded-[20px] border border-line bg-sanctum p-4">{s}</li>
+            <li key={s} className="rounded-card border border-line bg-sanctum p-4">{s}</li>
           ))}
         </ol>
       </div>

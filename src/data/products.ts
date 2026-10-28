@@ -32,7 +32,6 @@ export const products: Product[] = [
     createdAt: "2026-09-20",
     occasions: ["daily-puja", "diwali"],
     badge: "Bestseller",
-    isFeatured: true,
     highlights: ["Strung the same day", "Doorway length available"],
   },
   {
@@ -84,7 +83,6 @@ export const products: Product[] = [
     createdAt: "2026-10-01",
     occasions: ["diwali", "daily-puja"],
     badge: "Bestseller",
-    isFeatured: true,
   },
   {
     id: "prd_puja_thali",
@@ -156,7 +154,6 @@ export const products: Product[] = [
     createdAt: "2026-09-02",
     occasions: ["daily-puja"],
     badge: "Bestseller",
-    isFeatured: true,
   },
   {
     id: "prd_havan_kit",
@@ -198,7 +195,6 @@ export const products: Product[] = [
     createdAt: "2026-10-12",
     occasions: ["diwali"],
     badge: "Festive",
-    isFeatured: true,
   },
   {
     id: "prd_rangoli_set",

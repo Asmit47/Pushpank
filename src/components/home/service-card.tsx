@@ -9,7 +9,7 @@ export function ServiceCard({ service, eagerImage = false }: { service: Service;
   const from = prices.length ? Math.min(...prices) : undefined;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[20px] border border-line bg-sanctum shadow-card transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-gold/35 hover:shadow-lift motion-reduce:transition-none">
+    <article className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-sanctum shadow-card lift">
       <div className="relative">
         <Media
           src={service.image.src}

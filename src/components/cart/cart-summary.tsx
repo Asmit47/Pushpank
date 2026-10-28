@@ -1,5 +1,6 @@
 import { formatPrice } from "@/lib/format";
 import { site } from "@/data/site";
+import { FreeDeliveryNudge } from "./free-delivery-nudge";
 
 export function CartSummary({
   subtotal,
@@ -27,6 +28,7 @@ export function CartSummary({
         <dt>{estimate ? "Estimated total" : "Total"}</dt>
         <dd className="tabular-nums">{formatPrice(total)}</dd>
       </div>
+      <FreeDeliveryNudge subtotal={subtotal} />
       {estimate && (
         <p className="pt-1 text-xs text-muted">
           Delivery is free on orders of {formatPrice(site.delivery.freeDeliveryAbove)} or more. The final amount is

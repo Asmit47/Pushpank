@@ -10,7 +10,7 @@ export default function Loading() {
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="aspect-[3/4] animate-flicker rounded-[20px] bg-sanctum"
+              className="aspect-[3/4] animate-flicker rounded-card bg-sanctum"
               style={{ animationDelay: `${i * 180}ms` }}
             />
           ))}

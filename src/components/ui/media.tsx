@@ -20,7 +20,7 @@ export function Media({ src, alt, wrapperClassName, className, ...props }: Media
       {isPlaceholder && process.env.NODE_ENV !== "production" && (
         <span
           aria-hidden
-          className="pointer-events-none absolute bottom-2 right-2 rounded bg-charcoal/70 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-ivory"
+          className="pointer-events-none absolute bottom-2 right-2 rounded bg-night/70 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.18em] text-parchment"
         >
           Placeholder
         </span>

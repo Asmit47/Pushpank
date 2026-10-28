@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 import { Snowflake, Truck } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Container } from "@/components/ui/container";
-import { Media } from "@/components/ui/media";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ProductCard } from "@/components/shop/product-card";
+import { ProductGallery } from "@/components/shop/product-gallery";
 import { ProductPurchase } from "@/components/shop/product-purchase";
 import { Reveal } from "@/components/motion/reveal";
 import { site } from "@/data/site";
@@ -75,16 +75,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
       <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-14">
         <div className="space-y-3">
-          <Media
-            src={product.images[0].src}
-            alt={product.images[0].alt}
-            width={1024}
-            height={1024}
-            priority
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            wrapperClassName="aspect-square rounded-3xl border border-line bg-sanctum"
-            className="size-full"
-          />
+          <ProductGallery product={product} />
           {product.highlights && product.highlights.length > 0 && (
             <ul className="mt-4 flex flex-wrap gap-2">
               {product.highlights.map((h) => (
@@ -92,26 +83,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               ))}
             </ul>
           )}
-          {product.secondaryImage && (
-            <p className="mt-3 text-sm text-muted">Delivery is confirmed for Lucknow pincodes at checkout.</p>
-          )}
-          {product.images.length > 1 && (
-            <ul className="grid grid-cols-4 gap-3">
-              {product.images.slice(1).map((img) => (
-                <li key={img.src}>
-                  <Media
-                    src={img.src}
-                    alt={img.alt}
-                    width={240}
-                    height={240}
-                    sizes="12vw"
-                    wrapperClassName="aspect-square rounded-xl border border-line"
-                    className="size-full"
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
+          <p className="mt-3 text-sm text-muted">Delivery is confirmed for Lucknow pincodes at checkout.</p>
         </div>
 
         <div className="lg:sticky lg:top-28 lg:self-start">
@@ -129,7 +101,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       </div>
 
       <Reveal className="mt-14 grid gap-6 lg:grid-cols-3">
-        <section className="rounded-2xl border border-line bg-sanctum p-6 lg:col-span-2">
+        <section className="rounded-panel border border-line bg-sanctum p-6 lg:col-span-2">
           <h2 className="text-2xl font-semibold text-gold-soft">About this product</h2>
           <p className="mt-3 leading-relaxed text-parchment/80">{product.description}</p>
 
@@ -160,14 +132,14 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
         <aside className="space-y-4">
           {product.storage && (
-            <section className="rounded-2xl bg-forest-100 p-5 text-forest">
+            <section className="rounded-panel bg-tulsi-100 p-5 text-tulsi">
               <h2 className="flex items-center gap-2 font-sans text-base font-semibold">
                 <Snowflake className="size-4" aria-hidden /> Storage and freshness
               </h2>
               <p className="mt-2 text-sm leading-relaxed">{product.storage}</p>
             </section>
           )}
-          <section className="rounded-2xl border border-line bg-sanctum p-5">
+          <section className="rounded-panel border border-line bg-sanctum p-5">
             <h2 className="font-sans text-base font-semibold">Delivery and cancellation</h2>
             <p className="mt-2 text-sm leading-relaxed text-parchment/75">
               {product.perishable

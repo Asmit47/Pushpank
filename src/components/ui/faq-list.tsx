@@ -4,7 +4,7 @@ import type { Faq } from "@/types";
 /** Native disclosure elements: keyboard accessible and works without JavaScript. */
 export function FaqList({ faqs }: { faqs: Faq[] }) {
   return (
-    <div className="divide-y divide-line/80 overflow-hidden rounded-[20px] border border-line bg-sanctum/70">
+    <div className="divide-y divide-line/80 overflow-hidden rounded-card border border-line bg-sanctum/70">
       {faqs.map((f) => (
         <details key={f.question} className="group px-6">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-medium transition-colors marker:hidden hover:text-gold-soft [&::-webkit-details-marker]:hidden">

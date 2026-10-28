@@ -38,7 +38,7 @@ export function FormSection({
   children: ReactNode;
 }) {
   return (
-    <fieldset className="rounded-[20px] border border-line bg-sanctum p-5 sm:p-6">
+    <fieldset className="rounded-card border border-line bg-sanctum p-5 sm:p-6">
       <legend className="sr-only">{title}</legend>
       <div className="mb-5 flex items-start gap-3">
         {step !== undefined && (
